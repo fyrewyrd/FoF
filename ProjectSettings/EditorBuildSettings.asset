@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/MHLab/Patch/Launcher/Scenes/Launcher.unity
+    guid: 62bbf456ac1f00d47a1374cb8f720350
+  - enabled: 1
+    path: Assets/MHLab/Patch/Launcher/Scenes/PreGame.unity
+    guid: 98697cd740c1eb148b123f3c1128479b
+  - enabled: 1
+    path: Assets/uMMORPG/Scenes/login.unity
+    guid: e6e4f8245ba7c6d47ae8aec7933ca9af
+  - enabled: 1
+    path: Assets/uMMORPG/Scenes/World of Faoria.unity
+    guid: a11831025daca24449ab977327654930
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 71ace6cf163a3da479f8076b09e90baf,
+      type: 2}
