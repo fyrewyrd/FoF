@@ -1,0 +1,65 @@
+﻿// Note: this script has to be on an always-active UI parent, so that we can
+// always react to the hotkey.
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public partial class UICharacterInfo : MonoBehaviour
+{
+    public KeyCode hotKey = KeyCode.T;
+    public GameObject panel;
+    public TextMeshProUGUI damageText;
+    public TextMeshProUGUI defenseText;
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI manaText;
+    public TextMeshProUGUI criticalChanceText;
+    public TextMeshProUGUI blockChanceText;
+    public TextMeshProUGUI speedText;
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI currentExperienceText;
+    public TextMeshProUGUI maximumExperienceText;
+    public TextMeshProUGUI skillExperienceText;
+    public TextMeshProUGUI strengthText;
+    public TextMeshProUGUI intelligenceText;
+    public Button strengthButton;
+    public Button intelligenceButton;
+
+    void Update()
+    {
+        Player player = Player.localPlayer;
+        if (player)
+        {
+            // hotkey (not while typing in chat, etc.)
+            if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
+                panel.SetActive(!panel.activeSelf);
+
+            // only refresh the panel while it's active
+            if (panel.activeSelf)
+            {
+                damageText.text = player.damage.ToString();
+                defenseText.text = player.defense.ToString();
+                healthText.text = player.healthMax.ToString();
+                manaText.text = player.manaMax.ToString();
+                criticalChanceText.text = (player.criticalChance * 100).ToString("F0") + "%";
+                blockChanceText.text = (player.blockChance * 100).ToString("F0") + "%";
+                speedText.text = player.speed.ToString("F1");
+                levelText.text = player.level.ToString();
+                currentExperienceText.text = player.experience.ToString();
+                maximumExperienceText.text = player.experienceMax.ToString();
+                skillExperienceText.text = player.skillExperience.ToString();
+                strengthText.text = player.strength.ToString();
+                strengthButton.interactable = player.AttributesSpendable() > 0;
+                strengthButton.onClick.SetListener(() => {
+                    player.CmdIncreaseStrength();
+                });
+
+                intelligenceText.text = player.intelligence.ToString();
+                intelligenceButton.interactable = player.AttributesSpendable() > 0;
+                intelligenceButton.onClick.SetListener(() => {
+                    player.CmdIncreaseIntelligence();
+                });
+            }
+        }
+        else panel.SetActive(false);
+    }
+}
