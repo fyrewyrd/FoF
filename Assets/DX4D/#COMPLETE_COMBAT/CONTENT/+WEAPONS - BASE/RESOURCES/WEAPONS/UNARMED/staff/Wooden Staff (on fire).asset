@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f755a7e4746d048804ba51ceffe651, type: 3}
+  m_Name: Wooden Staff (on fire)
+  m_EditorClassIdentifier: 
+  maxStack: 1
+  buyPrice: 0
+  sellPrice: 0
+  itemMallPrice: 0
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: 
+  image: {fileID: 21300000, guid: 6ad1da3aea026434c916b94e6f429eb8, type: 3}
+  minLevel: 0
+  cooldownBuff: {fileID: 0}
+  showWeaponModel: 1
+  weaponModelOffset: {x: 0, y: 0, z: 0}
+  changeToPlayerSkin: {fileID: 0}
+  category: WeaponTwoHandedStaff
+  healthBonus: 0
+  manaBonus: 0
+  damageBonus: 0
+  defenseBonus: 0
+  blockChanceBonus: 0
+  criticalChanceBonus: 0
+  modelPrefab: {fileID: 135296, guid: f1db45b1b0f94ff4182e4d2481cc8528, type: 3}
+  durabilityManager: {fileID: 0}
+  _breakability: 1
+  _durability: 1000
+  _maxDurability: 1000
+  automaticCategory: 1
+  automaticName: 0
+  automaticTooltip: 1
+  description: A stick...that's on fire...what could go wrong?
+  level: 1
+  gearRarity: 1
+  material: 0
+  constantVisualEffect: {fileID: 0}
+  weaponSkills:
+  - {fileID: 11400000, guid: db3f6096061d9bd41a6f694a2c4e24eb, type: 2}
+  weaponCategory: 1
+  weaponHand: 1
+  rangedWeapon: 0
+  attackRange: 2
+  requiresAmmo: 0
+  ammunition: []
+  maxAmmo: 99
+  requiredAmmo: 0
+  attackDelay: 1
+  castSpeedMultiplier: 1
+  damage:
+    properties:
+      nonAggressive: 0
+      directDamage: 0
+      penetrateReflect: 0
+      leechDamage: 0
+      nonAbsorbable: 0
+      nonResistable: 0
+      unavoidable: 0
+      unblockable: 0
+      nonSneakAttack: 0
+    tactics: {fileID: 0}
+    method: 1
+    element: 1
+    fixedDamage: 1
+    minDamage: 1
+    maxDamage: 1
+    bonus: 0
+    multiplier: 1
+    addedDamageInterval: 0.25
+    addedDamage: []
+  status: {fileID: 0}

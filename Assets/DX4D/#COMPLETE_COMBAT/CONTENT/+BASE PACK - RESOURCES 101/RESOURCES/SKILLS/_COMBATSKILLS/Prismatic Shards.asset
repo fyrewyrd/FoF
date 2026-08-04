@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665f30164fc2c5743bd866a868a4b491, type: 3}
+  m_Name: Prismatic Shards
+  m_EditorClassIdentifier: 
+  nextSkill: {fileID: 0}
+  followupDefaultAttack: 0
+  toolTip: '<b>{NAME} Lvl {LEVEL}</b>
+
+    {CASTINFO}
+
+
+    {DAMAGEINFO}
+
+    {DOT}
+
+
+    Hits the target with elemental energy!'
+  image: {fileID: 21300000, guid: 4ca2d86dbf26043f684abd700d03d4cf, type: 3}
+  learnDefault: 1
+  showCastBar: 1
+  cancelCastIfTargetDied: 1
+  predecessor: {fileID: 0}
+  predecessorLevel: 1
+  requiredWeaponCategory: 
+  requiredLevel:
+    baseValue: 1
+    bonusPerLevel: 0
+  requiredSkillExperience:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxLevel: 1
+  manaCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  castTime:
+    baseValue: 1
+    bonusPerLevel: 0
+  cooldown:
+    baseValue: 30
+    bonusPerLevel: 0
+  castRange:
+    baseValue: 6
+    bonusPerLevel: 0
+  castSound: {fileID: 0}
+  autoTarget: 1
+  autoTargetSelf: 0
+  canTargetCorpses: 0
+  healthCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  bloodCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  spiritCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  furyCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  staminaCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  onCastStartVisualEffect: {fileID: 0}
+  onCastFinishVisualEffect: {fileID: 0}
+  onHitVisualEffect: {fileID: 0}
+  launchedProjectile: {fileID: 0}
+  launchedProjectileSpeed: 35
+  weaponConfig:
+    getDamageMethodFromWeapon: 0
+    getDamageElementFromWeapon: 0
+    addDamage: 0
+    addDOT: 0
+    addStatusEffects: 0
+    addCooldown: 0
+  skillDamage:
+    properties:
+      nonAggressive: 0
+      directDamage: 0
+      penetrateReflect: 0
+      lifeLeech: 0
+      nonAbsorbable: 0
+      nonResistable: 0
+      unavoidable: 0
+      unblockable: 0
+      nonSneakAttack: 0
+    tactics:
+      useTactics: 0
+      knockbackDistance: 0
+      knockasideDistance: 0
+      knockupDistance: 0
+      chargeToDistanceFrom: 0
+      pullToDistanceFrom: 0
+    method: 2
+    element: 0
+    fixedDamage: 1
+    _max: 0
+    _min: 0
+    bonus: 0
+    multiplier: 1
+    damageTickInterval: 0.5
+    damageOverTime:
+    - {fileID: 11400000, guid: 769223cc60b1afd449fa2b423ee597b4, type: 2}
+    - {fileID: 11400000, guid: 19831ab2e88ad1f46a3614acc956d736, type: 2}
+    - {fileID: 11400000, guid: e414a1b01fbbd014981b5a65628c1f3e, type: 2}
+    - {fileID: 11400000, guid: 94cc0d5cbd884b04e946b89133ad0a5d, type: 2}
+    - {fileID: 11400000, guid: e5c242af44cf2be44b1d64fd3aa36e6c, type: 2}
+    - {fileID: 11400000, guid: 533c42adb6f578943b558bcfdcd7c5cd, type: 2}
+  skillStatusEffects:
+    inflictStatus: []
+  damage:
+    baseValue: 0
+    bonusPerLevel: 0
+  stunChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  stunTime:
+    baseValue: 0
+    bonusPerLevel: 0

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ed66f56e93f9149959a3500321eae1, type: 3}
+  m_Name: Event-TheLifeOfASoldierPoem
+  m_EditorClassIdentifier: 
+  shortPause: 0
+  longPause: 3
+  speech:
+  - We have an understanding, you and I.
+  - We sit in silence; nothing needs to be said.
+  - I know the weight you carry.
+  - You hold your head high, but inside you cry.
+  - The life of a soldier is not an easy one.
+  - Memories haunt you!
+  - But you stand tall and show no fear.
+  - The life of a soldier is not an easy one.
+  - You hear voices of days past come rushing to your head.
+  - You think to yourself, "He was a good one; why is he dead?"
+  - You wonder if you should have done things differently.
+  - No time to think, only react.
+  - The life of a soldier is not an easy one.
+  - The guilt is too much to bear.
+  - 'Although you were wounded, you question, '
+  - '"Why him and not me?"'
+  - You can't forget the faces that were there.
+  - The life of a soldier is not an easy one.
+  - We have an understanding, you and I.
+  - You're a soldier for life; and it has not been an easy one.
+  sayARandomLine: 0
+  castSkill: {fileID: 0}
+  playSounds: []
+  triggerVisualEffects: []
+  playAnimationsNamed: []
+  createMinions: []
+  createItems: []

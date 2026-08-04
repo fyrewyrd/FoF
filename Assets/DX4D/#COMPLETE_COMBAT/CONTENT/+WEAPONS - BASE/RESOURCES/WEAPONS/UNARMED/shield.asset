@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f755a7e4746d048804ba51ceffe651, type: 3}
+  m_Name: shield
+  m_EditorClassIdentifier: 
+  itemType: 1
+  subType: 0
+  maxStack: 1
+  buyPrice: 47
+  sellPrice: 1
+  itemMallPrice: 106
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: dfghjk
+  image: {fileID: 21300000, guid: 2f7c842e6949448bbaff0acae5a81424, type: 3}
+  minLevel: 0
+  cooldown: 0
+  _cooldownCategory: 
+  showWeaponModel: 1
+  weaponModelOffset: {x: 0, y: 0, z: 0}
+  changeToPlayerSkin: {fileID: 0}
+  runes: []
+  maleUmaRecipe: {fileID: 0}
+  femaleUmaRecipe: {fileID: 0}
+  category: LeftHandedShield
+  healthBonus: 0
+  manaBonus: 0
+  damageBonus: 0
+  defenseBonus: 0
+  blockChanceBonus: 0
+  criticalChanceBonus: 0
+  modelPrefab: {fileID: 0}
+  constantVisualEffect: {fileID: 0}
+  description: 
+  level: 1
+  gearRarity: 0
+  material: 14
+  automaticCategory: 1
+  automaticName: 0
+  automaticTooltip: 1
+  showItemDetails: 1
+  durabilityManager: {fileID: 0}
+  _breakability: 1
+  _durability: 100
+  _maxDurability: 100
+  weaponCategory: 25
+  weaponHand: 0
+  weaponSkills: []
+  damage:
+    damage:
+      method: 1
+      element: 0
+      fixedDamage: 1
+      _max: 0
+      _min: 0
+      bonus: 0
+      multiplier: 1
+    properties:
+      nonAggressive: 0
+      directDamage: 0
+      penetrateReflect: 0
+      lifeLeech: 0
+      nonAbsorbable: 0
+      nonResistable: 0
+      unavoidable: 0
+      unblockable: 0
+      nonSneakAttack: 0
+    tactics:
+      useTactics: 0
+      knockbackDistance: 0
+      knockasideDistance: 0
+      knockupDistance: 0
+      chargeToDistanceFrom: 0
+      pullToDistanceFrom: 0
+    status:
+      statusEffects: []
+    damageTickInterval: 1
+    damageOverTime: []
+  attackDelay: 1
+  _attackSpeedMultiplier: 1
+  rangedWeapon: 0
+  attackRange: 1.15
+  requiresAmmo: 0
+  ammunition: []
+  maxAmmo: 18
+  requiredAmmo: 0
