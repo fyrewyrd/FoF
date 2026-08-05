@@ -19,7 +19,9 @@ MonoBehaviour:
   allowedClasses: []
   startingSkills: []
   startingItems: []
-  startingFactions: []
+  startingFactions:
+  - faction: {fileID: 11400000, guid: c4c4c0da2d7fdca4cbadfa92fbe27bb3, type: 2}
+    startRating: 0
   changeRealm: {fileID: 0}
   changeAlliedRealm: {fileID: 0}
   statModifiers:

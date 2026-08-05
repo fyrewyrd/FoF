@@ -16,7 +16,9 @@ public partial class NetworkManagerMMO : NetworkManager
     public NetworkState state = NetworkState.Offline;
 
     public Dictionary<NetworkConnectionToClient, string> lobby = new Dictionary<NetworkConnectionToClient, string>();
-
+// Players waiting to be spawned after the world scene loads
+    readonly Dictionary<NetworkConnectionToClient, GameObject> pendingPlayers =
+        new Dictionary<NetworkConnectionToClient, GameObject>();
     [Header("UI")]
     public UIPopup uiPopup;
 
@@ -301,12 +303,13 @@ public partial class NetworkManagerMMO : NetworkManager
     }
 
     // Keep your existing OnServerCharacterSelect and OnServerCharacterDelete...
-
+    
     void OnServerCharacterSelect(NetworkConnectionToClient conn, CharacterSelectMsg message)
     {
         if (conn == null || !lobby.ContainsKey(conn))
         {
-            if (conn != null) ServerSendError(conn, "CharacterSelect: not in lobby", true);
+            if (conn != null)
+                ServerSendError(conn, "CharacterSelect: not in lobby", true);
             return;
         }
 
@@ -319,19 +322,19 @@ public partial class NetworkManagerMMO : NetworkManager
             return;
         }
 
+        // Load the character but do NOT add the player yet
         GameObject go = Database.singleton.CharacterLoad(characters[message.index], playerClasses, false);
 
-        NetworkServer.AddPlayerForConnection(conn, go);
+        // Store it so we can spawn after the scene change
+        pendingPlayers[conn] = go;
 
-        Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnServerCharacterSelect_", account, go, conn, message);
-
+        // Remove from lobby
         lobby.Remove(conn);
 
-        // === LOAD THE WORLD SCENE AFTER SUCCESSFUL CHARACTER SELECTION ===
-        Debug.Log($"[Server] Character selected successfully - Loading World of Faoria");
+        Debug.Log($"[Server] Character selected for {account} – loading World of Faoria");
         ServerChangeScene("World of Faoria");
     }
-
+    
     void OnServerCharacterDelete(NetworkConnectionToClient conn, CharacterDeleteMsg message)
     {
         if (conn == null || !lobby.ContainsKey(conn))
@@ -559,6 +562,48 @@ public partial class NetworkManagerMMO : NetworkManager
         }
     }
     
+    
+public override void OnServerSceneChanged(string sceneName)
+{
+    base.OnServerSceneChanged(sceneName);
+
+    if (sceneName != "World of Faoria") return;
+
+    Debug.Log("[Server] World of Faoria finished loading – spawning pending players");
+
+    foreach (var kvp in pendingPlayers)
+    {
+        NetworkConnectionToClient conn = kvp.Key;
+        GameObject playerGO = kvp.Value;
+
+        if (conn != null && playerGO != null)
+        {
+            // Critical for Host mode after scene change
+            if (!conn.isAuthenticated)
+            {
+                conn.isAuthenticated = true;
+                Debug.Log($"[Server] Re-authenticated connection {conn.connectionId}");
+            }
+
+            NetworkServer.AddPlayerForConnection(conn, playerGO);
+            Debug.Log($"[Server] Spawned player for connection {conn.connectionId}");
+        }
+    }
+
+    pendingPlayers.Clear();
+}
+public override void OnClientSceneChanged()
+{
+    base.OnClientSceneChanged();
+
+    // Only Ready if we are still connected and the connection is authenticated
+    if (NetworkClient.active && NetworkClient.connection != null && 
+        NetworkClient.connection.isAuthenticated && !NetworkClient.ready)
+    {
+        NetworkClient.Ready();
+        Debug.Log("[Client] Became Ready after scene change");
+    }
+}
     // Called when character creation screen is shown
     void OnClientCharacterCreation_(bool isVisible)
     {

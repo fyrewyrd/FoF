@@ -23,7 +23,9 @@ MonoBehaviour:
   startingItems:
   - item: {fileID: 11400000, guid: 1bf943ed93ba66e4483325ac74282b34, type: 2}
     amount: 1
-  startingFactions: []
+  startingFactions:
+  - faction: {fileID: 11400000, guid: c4c4c0da2d7fdca4cbadfa92fbe27bb3, type: 2}
+    startRating: 0
   changeRealm: {fileID: 0}
   changeAlliedRealm: {fileID: 0}
   statModifiers:
