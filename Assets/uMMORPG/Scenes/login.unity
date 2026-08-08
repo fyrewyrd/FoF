@@ -27,7 +27,7 @@ RenderSettings:
   m_AmbientIntensity: 0.6801168
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 1241302091}
+  m_SkyboxMaterial: {fileID: 1928626311}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -231,7 +231,7 @@ Transform:
   m_Children:
   - {fileID: 1124361452}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &10392301
 GameObject:
@@ -464,8 +464,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1488334803}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -345.596, z: 0}
 --- !u!1 &64912800
 GameObject:
@@ -1832,7 +1832,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &306799413
 GameObject:
@@ -4344,7 +4344,7 @@ PrefabInstance:
     - target: {fileID: 6782112333398131214, guid: a54fde34eec40964b94d71ee0aba9889,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6782112333398131214, guid: a54fde34eec40964b94d71ee0aba9889,
         type: 3}
@@ -10397,7 +10397,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 842828802}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f89b6d3142b38d9409bf73b28187f9fa, type: 3}
   m_Name: 
@@ -10416,7 +10416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAddionalCamera: 0
-  material: {fileID: 1790090276}
+  material: {fileID: 0}
   simpleFog: 0
 --- !u!1 &851307739
 GameObject:
@@ -10542,7 +10542,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &923882461
 GameObject:
@@ -10885,8 +10885,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1488334803}
-  m_RootOrder: 6
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -314.655, z: 0}
 --- !u!1 &947235285
 GameObject:
@@ -10916,8 +10916,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1488334803}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -390.276, z: 0}
 --- !u!1 &979694260
 GameObject:
@@ -13458,8 +13458,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1033494714}
-  m_Father: {fileID: 1488334803}
-  m_RootOrder: 7
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13508,8 +13508,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1488334803}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 9.183, y: 180, z: 0}
 --- !u!1 &1200154981
 GameObject:
@@ -13944,49 +13944,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229404774}
   m_CullTransparentMesh: 0
---- !u!21 &1241302091
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Enviro/Lite/SkyboxSimple
-  m_Shader: {fileID: 4800000, guid: 846f1e8b410d51444866f03712815c1e, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _FlatCloudsBaseTexture:
-        m_Texture: {fileID: 2800000, guid: 9b9ac0c14a0678d498b26fb2486005f1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _FlatCloudsDetailTexture:
-        m_Texture: {fileID: 2800000, guid: 3904de3fb7c0ff1419fd3064f8114c90, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MoonTex:
-        m_Texture: {fileID: 2800000, guid: 66ad4c55c5a3a7045a25295e064fc7d2, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Stars:
-        m_Texture: {fileID: 8900000, guid: 214e1a8de772f334886a8d3bee074dc9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors:
-    - _HorizonColor: {r: 0.9511452, g: 0.9511452, b: 0.9511452, a: 1}
-    - _SkyColor: {r: 0.38252658, g: 0.55919576, b: 0.72395134, a: 0.87389904}
-    - _SunColor: {r: 0.9666419, g: 0.8672625, b: 0.7670391, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1249496337
 GameObject:
   m_ObjectHideFlags: 0
@@ -14398,7 +14355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1178880608714552, guid: 7d3cda5fbbd5b4d0d8db6df342980965, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224621690530927656, guid: 7d3cda5fbbd5b4d0d8db6df342980965,
         type: 3}
@@ -14662,8 +14619,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1488334803}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: -374.421, z: 0}
 --- !u!1 &1378047130
 GameObject:
@@ -14707,7 +14664,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 38.494003, z: 0}
 --- !u!1 &1405690891
 GameObject:
@@ -14796,8 +14753,6 @@ MonoBehaviour:
   rendering: 0
   myProbe: {fileID: 1405690893}
   customRendering: 0
-  customCloudsQuality: {fileID: 0}
-  useFog: 0
 --- !u!1 &1406274789
 GameObject:
   m_ObjectHideFlags: 17
@@ -14889,7 +14844,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427048336
 GameObject:
@@ -15306,15 +15261,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1586914231}
-  - {fileID: 1984581131}
-  - {fileID: 1199627029}
-  - {fileID: 947235286}
-  - {fileID: 1360787999}
-  - {fileID: 53380909}
-  - {fileID: 932613507}
-  - {fileID: 1165640890}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15493,7 +15440,7 @@ Transform:
   - {fileID: 1123354454}
   - {fileID: 659619816}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1499590577
 PrefabInstance:
@@ -20426,7 +20373,7 @@ Transform:
   - {fileID: 1990115789}
   - {fileID: 749356363}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1573587992
 GameObject:
@@ -20593,7 +20540,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1488334803}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1339566082387182, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
       propertyPath: m_Name
@@ -20605,7 +20552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4339900628605490, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4339900628605490, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
       propertyPath: m_LocalScale.x
@@ -20637,7 +20584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4339900628605490, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4339900628605490, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
       propertyPath: m_LocalRotation.y
@@ -20645,7 +20592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4339900628605490, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4339900628605490, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20661,12 +20608,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71bee5768d204dc2b5649d5bf89baf14, type: 3}
---- !u!4 &1586914231 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4339900628605490, guid: 71bee5768d204dc2b5649d5bf89baf14,
-    type: 3}
-  m_PrefabInstance: {fileID: 1586914230}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1605173915
 GameObject:
   m_ObjectHideFlags: 0
@@ -20954,7 +20895,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1690069401
 GameObject:
@@ -26452,30 +26393,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!21 &1790090276
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Enviro/Lite/EnviroFogRendering
-  m_Shader: {fileID: 4800000, guid: 5b0160f40adf130428015ffb5bfdb8a5, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs: []
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1001 &1794950165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26493,7 +26410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26962,6 +26879,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928168833}
   m_CullTransparentMesh: 0
+--- !u!21 &1928626311
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Enviro/Lite/SkyboxSimple
+  m_Shader: {fileID: 4800000, guid: 846f1e8b410d51444866f03712815c1e, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FlatCloudsBaseTexture:
+        m_Texture: {fileID: 2800000, guid: 9b9ac0c14a0678d498b26fb2486005f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlatCloudsDetailTexture:
+        m_Texture: {fileID: 2800000, guid: 3904de3fb7c0ff1419fd3064f8114c90, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MoonTex:
+        m_Texture: {fileID: 2800000, guid: 66ad4c55c5a3a7045a25295e064fc7d2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Stars:
+        m_Texture: {fileID: 8900000, guid: 214e1a8de772f334886a8d3bee074dc9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors:
+    - _HorizonColor: {r: 0.9511452, g: 0.9511452, b: 0.9511452, a: 1}
+    - _SkyColor: {r: 0.38252658, g: 0.55919576, b: 0.72395134, a: 0.87389904}
+    - _SunColor: {r: 0.9666419, g: 0.8672625, b: 0.7670391, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1940485389
 GameObject:
   m_ObjectHideFlags: 0
@@ -31726,12 +31686,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5817b89540e278546a278ae549dd74f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroy: 0
+  dontDestroy: 1
   showSetup: 1
-  showInstances: 1
-  showThirdParty: 0
+  showInstances: 0
+  showThirdParty: 1
   showUtilities: 0
-  showThirdPartyShaders: 0
+  showThirdPartyShaders: 1
   showThirdPartyMisc: 0
   showThirdPartyNetwork: 0
   showUtiliies: 0
@@ -31739,8 +31699,6 @@ MonoBehaviour:
   skyBaking:
     resolution: 2048
   currentEnviroSkyVersion: 1
-  enviroHDInstance: {fileID: 0}
-  enviroLWInstance: {fileID: 2124316737}
 --- !u!4 &1982318748
 Transform:
   m_ObjectHideFlags: 0
@@ -31762,7 +31720,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1488334803}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1787487985072918, guid: 889cbfc507c848118b9c7c6208ef3908, type: 3}
       propertyPath: m_Name
@@ -31778,7 +31736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4626615250193576, guid: 889cbfc507c848118b9c7c6208ef3908, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4626615250193576, guid: 889cbfc507c848118b9c7c6208ef3908, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31798,15 +31756,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4626615250193576, guid: 889cbfc507c848118b9c7c6208ef3908, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4626615250193576, guid: 889cbfc507c848118b9c7c6208ef3908, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4626615250193576, guid: 889cbfc507c848118b9c7c6208ef3908, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4626615250193576, guid: 889cbfc507c848118b9c7c6208ef3908, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -32384,7 +32342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  headlessStartMode: 0
+  headlessStartMode: 1
   editorAutoStart: 0
   sendRate: 20
   offlineScene: Assets/uMMORPG/Scenes/login.unity
@@ -32394,12 +32352,12 @@ MonoBehaviour:
   networkAddress: Use the Server List below!
   maxConnections: 1000
   disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
+  disconnectInactiveTimeout: 120
   authenticator: {fileID: 1488334806}
   playerPrefab: {fileID: 7014222573085211526, guid: f427312df2a3e264da0ffb9849268a6e,
     type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
+  autoCreatePlayer: 0
+  playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 4384590650708799601, guid: 51c4c4b5f860f8b4193b84c36ccda8af, type: 3}
   - {fileID: 109900, guid: 0f4948efce538432191cef46aef01d26, type: 3}
@@ -32462,7 +32420,9 @@ MonoBehaviour:
   serverList:
   - name: Local
     ip: 127.0.0.1
-  combatLogoutDelay: 5
+  - name: Hotspot
+    ip: 172.20.10.6
+  combatLogoutDelay: 900
   selection: -1
   selectionLocations:
   - {fileID: 947235286}
@@ -33113,7 +33073,6 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     indirectLightingUpdateMode: 0
   volumeLightSettings:
-    Resolution: 2
     dirVolumeLighting: 1
     SampleCount: 8
     ScatteringCoef:
@@ -33618,22 +33577,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     updateDefaultEnvironmentReflections: 1
-    reflectionCloudsQuality: {fileID: 0}
   cloudsSettings:
-    cloudsQualitySettings:
-      bottomCloudHeight: 3000
-      topCloudHeight: 7000
-      raymarchSteps: 150
-      stepsInDepthModificator: 0.75
-      transmissionToExit: 0.05
-      cloudsRenderResolution: 1
-      reprojectionPixelSize: 0
-      lodDistance: 0.5
-      baseNoiseUV: 20
-      detailNoiseUV: 50
-      useCurlNoise: 0
-      baseQuality: 0
-      detailQuality: 0
     cloudsWorldScale: 120000
     cloudsHeightMod: 0
     cloudsSkyFogHeightBlending: 15000
@@ -34387,50 +34331,6 @@ MonoBehaviour:
     antiFlicker: 1
     highQuality: 1
     radius: 7
-  auroraSettings:
-    auroraIntensity:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.5
-        value: 0.1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    auroraColor: {r: 0.1, g: 0.5, b: 0.7, a: 1}
-    auroraBrightness: 75
-    auroraContrast: 10
-    auroraHeight: 20000
-    auroraScale: 0.01
-    auroraSteps: 20
-    auroraLayer1Settings: {x: 0.1, y: 0.1, z: 0, w: 0.5}
-    auroraLayer2Settings: {x: 5, y: 5, z: 0, w: 0.5}
-    auroraColorshiftSettings: {x: 0.05, y: 0.05, z: 0, w: 5}
-    auroraSpeed: 0.005
   internalHour: 12
   currentHour: 12
   currentDay: 1
@@ -34439,11 +34339,11 @@ MonoBehaviour:
   LST: 641.30035
   lastHourUpdate: 12
   hourTime: 0
-  cloudAnim: {x: 0, y: 0.7899919, z: -0.06133781}
-  cloudFlatBaseAnim: {x: 0, y: -0.12240576}
-  cloudFlatDetailAnim: {x: 0, y: 0.9990011}
-  cloudAnimNonScaled: {x: 0, y: -2.1224105}
-  cirrusAnim: {x: 0, y: -0.10612046}
+  cloudAnim: {x: 0, y: -0.13994484, z: -0.34585792}
+  cloudFlatBaseAnim: {x: 0, y: -0.4154562}
+  cloudFlatDetailAnim: {x: 0, y: -0.31523803}
+  cloudAnimNonScaled: {x: 0, y: -2.415453}
+  cirrusAnim: {x: 0, y: -0.12077264}
   windIntensity: 0.5149999
   shadowIntensityMod: 0
   interiorMode: 0
@@ -34459,7 +34359,6 @@ MonoBehaviour:
   MainLight: {fileID: 279921842}
   AdditionalLight: {fileID: 0}
   MoonTransform: {fileID: 1487172967}
-  MainLightURP: {fileID: 0}
   lastAmbientSkyUpdate: 0
   lastRelfectionUpdate: 17703996
   lastRelfectionPositionUpdate: {x: 0, y: 0, z: 0}
@@ -34566,7 +34465,7 @@ MonoBehaviour:
   usePostEffectFog: 1
   showFogInEditor: 1
   EnviroSkyRender: {fileID: 842828814}
-  skyMat: {fileID: 1241302091}
+  skyMat: {fileID: 1928626311}
   showSettings: 1
 --- !u!4 &2124316738
 Transform:

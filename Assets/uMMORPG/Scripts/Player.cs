@@ -445,7 +445,7 @@ public partial class Player : Entity
     {
         // set singleton
         localPlayer = this;
-
+        
         // find main camera
         // only for local player. 'Camera.main' is expensive (FindObjectWithTag)
         cam = Camera.main;
@@ -458,6 +458,9 @@ public partial class Player : Entity
         // load skillbar after player data was loaded
         LoadSkillbar();
 
+        Debug.Log("[Player] OnStartLocalPlayer fired – this client now owns the player");
+        // base.OnStartLocalPlayer(); // if you have one
+        
         // addon system hooks
         Utils.InvokeMany(typeof(Player), this, "OnStartLocalPlayer_");
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using Mirror;
+using UnityEngine.AI;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -115,7 +117,8 @@ public partial class NetworkManagerMMO : NetworkManager
     {
         base.OnStartClient();
 
-        Debug.Log("[Client] OnStartClient fired");
+        //Debug.Log("[Client] OnStartClient fired");
+        Debug.Log($"[Login] Connecting to {NetworkManager.singleton.networkAddress}:7777");
 
         NetworkClient.ReplaceHandler<ErrorMsg>(
             (msg, channel) => OnClientError(null, msg),
@@ -236,6 +239,12 @@ public partial class NetworkManagerMMO : NetworkManager
         Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnStartServer_");
     }
 
+    public override void OnServerConnect(NetworkConnectionToClient conn)
+    {
+        Debug.Log($"[Server] OnServerConnect – connectionId: {conn.connectionId}");
+        base.OnServerConnect(conn);
+    }
+    
     private void ForceSendCharacterListToHost()
     {
         Debug.Log("[Server] ForceSendCharacterListToHost triggered (fallback timer)");
@@ -303,64 +312,147 @@ public partial class NetworkManagerMMO : NetworkManager
     }
 
     // Keep your existing OnServerCharacterSelect and OnServerCharacterDelete...
-    
-    void OnServerCharacterSelect(NetworkConnectionToClient conn, CharacterSelectMsg message)
+
+void OnServerCharacterSelect(NetworkConnectionToClient conn, CharacterSelectMsg message)
+{
+    if (conn == null || !lobby.ContainsKey(conn))
     {
-        if (conn == null || !lobby.ContainsKey(conn))
-        {
-            if (conn != null)
-                ServerSendError(conn, "CharacterSelect: not in lobby", true);
-            return;
-        }
-
-        string account = lobby[conn];
-        List<string> characters = Database.singleton.CharactersForAccount(account);
-
-        if (message.index < 0 || message.index >= characters.Count)
-        {
-            ServerSendError(conn, "invalid character index", false);
-            return;
-        }
-
-        // Load the character but do NOT add the player yet
-        GameObject go = Database.singleton.CharacterLoad(characters[message.index], playerClasses, false);
-
-        // Store it so we can spawn after the scene change
-        pendingPlayers[conn] = go;
-
-        // Remove from lobby
-        lobby.Remove(conn);
-
-        Debug.Log($"[Server] Character selected for {account} – loading World of Faoria");
-        ServerChangeScene("World of Faoria");
-    }
-    
-    void OnServerCharacterDelete(NetworkConnectionToClient conn, CharacterDeleteMsg message)
-    {
-        if (conn == null || !lobby.ContainsKey(conn))
-        {
-            if (conn != null) ServerSendError(conn, "CharacterDelete: not in lobby", true);
-            return;
-        }
-
-        string account = lobby[conn];
-        List<string> characters = Database.singleton.CharactersForAccount(account);
-
-        if (message.index < 0 || message.index >= characters.Count)
-        {
-            ServerSendError(conn, "invalid character index", false);
-            return;
-        }
-
-        Database.singleton.CharacterDelete(characters[message.index]);
-
-        Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnServerCharacterDelete_", message);
-
-        conn.Send(MakeCharactersAvailableMessage(account));
+        if (conn != null)
+            ServerSendError(conn, "CharacterSelect: not in lobby", true);
+        return;
     }
 
-    // ===================================================================
-    // HELPER METHODS (unchanged)
+    string account = lobby[conn];
+    List<string> characters = Database.singleton.CharactersForAccount(account);
+
+    if (message.index < 0 || message.index >= characters.Count)
+    {
+        ServerSendError(conn, "invalid character index", false);
+        return;
+    }
+
+    // 1. Load the character
+    GameObject go = Database.singleton.CharacterLoad(characters[message.index], playerClasses, false);
+
+    if (go == null)
+    {
+        Debug.LogError("[Select] CharacterLoad returned null!");
+        ServerSendError(conn, "Character load failed", true);
+        return;
+    }
+
+/*    // 2. Dirty temp plane + NavMesh safety
+    var agent = go.GetComponent<NavMeshAgent>();
+    if (agent != null) agent.enabled = false;
+
+    // Temporary plane position – adjust these numbers to match the plane you dropped
+    Vector3 tempPlanePos = new Vector3(-451.73f, 1.0f, -0.33f);
+    go.transform.position = tempPlanePos;
+
+    if (agent != null)
+    {
+        agent.Warp(tempPlanePos);
+        agent.enabled = true;
+    }
+*/
+
+// 2. Bypass NavMeshAgent completely for the initial spawn
+    var agent = go.GetComponent<NavMeshAgent>();
+    if (agent != null)
+    {
+        agent.enabled = false;
+        // Optional but sometimes more reliable:
+        // Destroy(agent);
+    }
+
+// Place the player directly (no agent involvement)
+    if (NetworkManager.startPositions != null && NetworkManager.startPositions.Count > 0)
+    {
+        Transform start = NetworkManager.startPositions[0];
+        go.transform.position = start.position;
+        go.transform.rotation = start.rotation;
+        Debug.Log($"[Select] Placed player at start position (no agent): {start.position}");
+    }
+    else
+    {
+        // Fallback to your temporary location if no start position exists yet
+        Vector3 tempPos = new Vector3(3737.423f, 0.649f, 3090.924f);
+        go.transform.position = tempPos;
+        Debug.LogWarning("[Select] No startPositions found – using temporary position");
+    }
+    
+    // 3. Protect from scene change destruction
+    DontDestroyOnLoad(go);
+
+    // 4. Store for later spawning
+    pendingPlayers[conn] = go;
+    Debug.Log($"[Select] Stored player in pendingPlayers. Count = {pendingPlayers.Count}");
+
+    // 5. Start the delayed final warp
+    StartCoroutine(DelayedFinalSpawn(go));
+
+    // 6. Leave lobby and change scene
+    lobby.Remove(conn);
+    Debug.Log($"[Server] Character selected for {account} – loading World of Faoria");
+    ServerChangeScene("World of Faoria");
+}
+
+System.Collections.IEnumerator DelayedFinalSpawn(GameObject player)
+{
+    yield return new WaitForSeconds(0.4f); // let agent settle on temp plane
+
+    if (player == null) yield break;
+
+    if (NetworkManager.startPositions != null && NetworkManager.startPositions.Count > 0)
+    {
+        Transform start = NetworkManager.startPositions[0];
+        var agent = player.GetComponent<NavMeshAgent>();
+
+        if (agent != null) agent.enabled = false;
+
+        player.transform.position = start.position;
+        player.transform.rotation = start.rotation;
+
+        if (agent != null)
+        {
+            agent.Warp(start.position);
+            agent.enabled = true;
+        }
+
+        Debug.Log($"[DirtySpawn] Final warp to {start.position}");
+    }
+    else
+    {
+        Debug.LogWarning("[DirtySpawn] No startPositions found for final warp");
+    }
+}
+
+void OnServerCharacterDelete(NetworkConnectionToClient conn, CharacterDeleteMsg message)
+{
+    if (conn == null || !lobby.ContainsKey(conn))
+    {
+        if (conn != null) ServerSendError(conn, "CharacterDelete: not in lobby", true);
+        return;
+    }
+
+    string account = lobby[conn];
+    List<string> characters = Database.singleton.CharactersForAccount(account);
+
+    if (message.index < 0 || message.index >= characters.Count)
+    {
+        ServerSendError(conn, "invalid character index", false);
+        return;
+    }
+
+    Database.singleton.CharacterDelete(characters[message.index]);
+
+    Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnServerCharacterDelete_", message);
+
+    conn.Send(MakeCharactersAvailableMessage(account));
+}
+
+      // ===================================================================
+    // HELPER METHODS
     // ===================================================================
 
     public bool IsAllowedCharacterName(string characterName)
@@ -405,47 +497,6 @@ public partial class NetworkManagerMMO : NetworkManager
         return 0;
     }
 
-   /* public CharactersAvailableMsg MakeCharactersAvailableMessage(string account)
-    {
-        List<Player> characters = new List<Player>();
-
-        foreach (string characterName in Database.singleton.CharactersForAccount(account))
-        {
-            GameObject playerObj = Database.singleton.CharacterLoad(characterName, playerClasses, true);
-            characters.Add(playerObj.GetComponent<Player>());
-        }
-
-        CharactersAvailableMsg message = new CharactersAvailableMsg();
-        message.Load(characters);
-
-        characters.ForEach(p => Destroy(p.gameObject));
-        return message;
-    }*/
-/*   public CharactersAvailableMsg MakeCharactersAvailableMessage(string account)
-   {
-       List<string> characterNames = Database.singleton.CharactersForAccount(account);
-
-       // If no characters exist for this account (common on first Host), create one automatically for testing
-       if (characterNames.Count == 0)
-       {
-           Debug.Log($"[Server] No characters found for account '{account}'. Creating a default test character.");
-
-           // Create a default character using the first player class
-           if (playerClasses.Count > 0)
-           {
-               string defaultName = "TestCharacter_" + System.DateTime.Now.Second;
-               GameObject classPrefab = playerClasses[0].gameObject;
-
-               Player player = CreateCharacter(classPrefab, defaultName, account, "", 0); // empty dna for now
-
-               Database.singleton.CharacterSave(player, false);
-               Destroy(player.gameObject);
-
-               Debug.Log($"[Server] Created default character: {defaultName}");
-           }
-       }
-*/
-
     public CharactersAvailableMsg MakeCharactersAvailableMessage(string account)
     {
         List<string> characterNames = Database.singleton.CharactersForAccount(account);
@@ -453,31 +504,25 @@ public partial class NetworkManagerMMO : NetworkManager
         if (characterNames.Count == 0)
         {
             Debug.Log($"[Server] No characters for '{account}'. Creating UMA test character.");
-            // ... your existing test character creation code ...
+            // your existing test character creation code here if needed
         }
 
         List<Player> characters = new List<Player>();
 
         foreach (string characterName in characterNames)
         {
-            GameObject playerObj = Database.singleton.CharacterLoad(characterName, playerClasses, true); // preview = true
+            GameObject playerObj = Database.singleton.CharacterLoad(characterName, playerClasses, true);
             if (playerObj != null)
-            {
                 characters.Add(playerObj.GetComponent<Player>());
-            }
         }
 
         CharactersAvailableMsg message = new CharactersAvailableMsg();
         message.Load(characters);
 
-        // === SAFER CLEANUP ===
         foreach (Player p in characters)
         {
             if (p != null && p.gameObject != null)
-            {
-                // Optional: add a small delay or just destroy safely
                 Destroy(p.gameObject);
-            }
         }
 
         return message;
@@ -504,23 +549,13 @@ public partial class NetworkManagerMMO : NetworkManager
         Debug.LogWarning("Use CharacterSelectMsg instead of AddPlayerMessage");
     }
 
-   /* public void ClearPreviews()
+    public void ClearPreviews()
     {
-        selection = -1;
         foreach (Transform location in selectionLocations)
-            if (location.childCount > 0)
+            if (location != null && location.childCount > 0)
                 Destroy(location.GetChild(0).gameObject);
-    }*/
-   
-   public void ClearPreviews()
-   {
-       // Do NOT reset selection here - let UI control it
-       // selection = -1;   <--- COMMENT THIS OUT or remove
+    }
 
-       foreach (Transform location in selectionLocations)
-           if (location.childCount > 0)
-               Destroy(location.GetChild(0).gameObject);
-   }
     // ===================================================================
     // ERROR HANDLING
     // ===================================================================
@@ -529,17 +564,18 @@ public partial class NetworkManagerMMO : NetworkManager
     {
         if (conn != null)
         {
-            conn.Send(new ErrorMsg 
-            { 
-                text = error, 
-                causesDisconnect = disconnect 
+            conn.Send(new ErrorMsg
+            {
+                text = error,
+                causesDisconnect = disconnect
             });
         }
     }
-    
+
     // ===================================================================
-    // FORCE CHARACTER LIST FOR HOST MODE (Critical Fix)
+    // FORCE CHARACTER LIST FOR HOST MODE
     // ===================================================================
+
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
@@ -554,57 +590,115 @@ public partial class NetworkManagerMMO : NetworkManager
                 lobby[conn] = "local";
 
             string account = lobby[conn];
-
             CharactersAvailableMsg msg = MakeCharactersAvailableMessage(account);
             conn.Send(msg);
 
             Debug.Log($"[Server] SENT CharactersAvailableMsg with {msg.characters.Length} characters");
         }
     }
-    
-    
-public override void OnServerSceneChanged(string sceneName)
-{
-    base.OnServerSceneChanged(sceneName);
 
-    if (sceneName != "World of Faoria") return;
-
-    Debug.Log("[Server] World of Faoria finished loading – spawning pending players");
-
-    foreach (var kvp in pendingPlayers)
+    public override void OnServerSceneChanged(string sceneName)
     {
-        NetworkConnectionToClient conn = kvp.Key;
-        GameObject playerGO = kvp.Value;
+        base.OnServerSceneChanged(sceneName);
 
-        if (conn != null && playerGO != null)
+        if (sceneName != "World of Faoria") return;
+
+        Debug.Log($"[Server] World of Faoria finished loading – pendingPlayers.Count = {pendingPlayers.Count}");
+
+        foreach (var kvp in pendingPlayers)
         {
-            // Critical for Host mode after scene change
-            if (!conn.isAuthenticated)
-            {
-                conn.isAuthenticated = true;
-                Debug.Log($"[Server] Re-authenticated connection {conn.connectionId}");
-            }
+            NetworkConnectionToClient conn = kvp.Key;
+            GameObject playerGO = kvp.Value;
 
-            NetworkServer.AddPlayerForConnection(conn, playerGO);
-            Debug.Log($"[Server] Spawned player for connection {conn.connectionId}");
+            Debug.Log($"[Server] Checking entry → conn null? {conn == null} | playerGO null? {playerGO == null}");
+
+            if (conn != null && playerGO != null)
+            {
+                if (!conn.isAuthenticated)
+                {
+                    conn.isAuthenticated = true;
+                    Debug.Log($"[Server] Re-authenticated connection {conn.connectionId}");
+                }
+
+                NetworkServer.AddPlayerForConnection(conn, playerGO);
+                Debug.Log($"[Server] Spawned player for connection {conn.connectionId}");
+
+                // Re-enable NavMeshAgent after a short delay so everything is settled
+                StartCoroutine(ReenableAgentAfterSpawn(playerGO));
+            }
+            else
+            {
+                Debug.LogWarning("[Server] Skipped entry because conn or playerGO was null");
+            }
+        }
+
+        pendingPlayers.Clear();
+    }
+    System.Collections.IEnumerator ReenableAgentAfterSpawn(GameObject player)
+    {
+        // Wait until the scene and network are fully settled
+        yield return new WaitForSeconds(0.5f);
+
+        if (player == null) yield break;
+
+        var agent = player.GetComponent<NavMeshAgent>();
+        if (agent == null)
+        {
+            // In case we destroyed it earlier, add a fresh one
+            agent = player.AddComponent<NavMeshAgent>();
+        }
+
+        // Make sure the agent is on the NavMesh
+        agent.enabled = false;
+        agent.Warp(player.transform.position);
+        agent.enabled = true;
+
+        Debug.Log($"[Agent] Re-enabled NavMeshAgent at {player.transform.position}");
+    }
+    
+    public override void OnClientSceneChanged()
+    {
+        base.OnClientSceneChanged();
+
+        Debug.Log($"[Client] OnClientSceneChanged – ready: {NetworkClient.ready}, " +
+                  $"active: {NetworkClient.active}, " +
+                  $"localPlayer: {(NetworkClient.localPlayer != null ? NetworkClient.localPlayer.name : "null")}");
+
+        // Force Ready in Host mode after scene change
+        if (NetworkClient.active)
+        {
+            if (!NetworkClient.ready)
+            {
+                NetworkClient.Ready();
+                Debug.Log("[Client] Forced NetworkClient.Ready()");
+            }
+            // Put this inside OnClientSceneChanged after the Ready() call
+            StartCoroutine(DelayedReadyCheck());
+            
+            // Extra safety for Host mode
+            if (NetworkClient.localPlayer != null && !NetworkClient.localPlayer.isLocalPlayer)
+            {
+                Debug.LogWarning("[Client] localPlayer exists but isLocalPlayer is false – this is the problem state");
+            }
         }
     }
 
-    pendingPlayers.Clear();
-}
-public override void OnClientSceneChanged()
-{
-    base.OnClientSceneChanged();
-
-    // Only Ready if we are still connected and the connection is authenticated
-    if (NetworkClient.active && NetworkClient.connection != null && 
-        NetworkClient.connection.isAuthenticated && !NetworkClient.ready)
+    System.Collections.IEnumerator DelayedReadyCheck()
     {
-        NetworkClient.Ready();
-        Debug.Log("[Client] Became Ready after scene change");
+        yield return new WaitForSeconds(0.3f);
+
+        if (NetworkClient.active && !NetworkClient.ready)
+        {
+            NetworkClient.Ready();
+            Debug.Log("[Client] Delayed force Ready");
+        }
+
+        if (NetworkClient.localPlayer != null)
+        {
+            Debug.Log($"[Client] After delay – isLocalPlayer: {NetworkClient.localPlayer.isLocalPlayer}");
+        }
     }
-}
-    // Called when character creation screen is shown
+    
     void OnClientCharacterCreation_(bool isVisible)
     {
         if (!isVisible) return;
@@ -615,14 +709,6 @@ public override void OnClientSceneChanged()
         {
             Camera.main.transform.position = creationCameraLocation.position;
             Camera.main.transform.rotation = creationCameraLocation.rotation;
-            Debug.Log("[Client] Camera moved to creationCameraLocation");
-        }
-        else if (Camera.main != null)
-        {
-            // Fallback: position camera in front of the creation preview
-            Debug.LogWarning("[Client] creationCameraLocation not assigned - using fallback");
-            // You can improve this fallback later
         }
     }
-    
 }
