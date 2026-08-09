@@ -1,3 +1,0 @@
-﻿This folder contains the following 3rd party assets:
-
-Unity Standard Assets: Projectors
