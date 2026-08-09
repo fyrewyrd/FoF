@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80688b9c341adf4bb61d19e98be6072, type: 3}
+  m_Name: Burn
+  m_EditorClassIdentifier: 
+  damage:
+    properties:
+      nonAggressive: 0
+      directDamage: 1
+      penetrateReflect: 1
+      lifeLeech: 0
+      nonAbsorbable: 0
+      nonResistable: 0
+      unavoidable: 1
+      unblockable: 1
+      nonSneakAttack: 1
+    tactics:
+      useTactics: 0
+      knockbackDistance: 0
+      knockasideDistance: 0
+      knockupDistance: 0
+      chargeToDistanceFrom: 0
+      pullToDistanceFrom: 0
+    method: 1
+    element: 1
+    fixedDamage: 1
+    _max: 0
+    _min: 0
+    bonus: 0
+    multiplier: 1
+    damageTickInterval: 1
+    damageOverTime:
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+    - {fileID: 11400000, guid: 51bc6faff312f644eb959b5768840baa, type: 2}
+  statusEffects:
+    inflictStatus: []
+  onHitVisualEffect: {fileID: 0}
+  useOnSelf: 0
+  caster: {fileID: 0}
+  target: {fileID: 0}

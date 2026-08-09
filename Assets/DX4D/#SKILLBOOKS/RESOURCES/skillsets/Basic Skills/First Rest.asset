@@ -1,0 +1,208 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389790c1e073c435695f4fc188184a2b, type: 3}
+  m_Name: First Rest
+  m_EditorClassIdentifier: 
+  addedCooldown: 0
+  nextSkill: {fileID: 0}
+  unlearnable: 0
+  disadvantageous: 0
+  followupDefaultAttack: 1
+  toolTip: 
+  image: {fileID: 21300000, guid: 656556a9dc916f346a515da5468bf60a, type: 3}
+  learnDefault: 1
+  showCastBar: 0
+  cancelCastIfTargetDied: 0
+  predecessor: {fileID: 0}
+  predecessorLevel: 1
+  requiredWeaponCategory: 
+  requiredLevel:
+    baseValue: 0
+    bonusPerLevel: 0
+  requiredSkillExperience:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxLevel: 1
+  manaCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  castTime:
+    baseValue: 0
+    bonusPerLevel: 0
+  cooldown:
+    baseValue: 0
+    bonusPerLevel: 0
+  castRange:
+    baseValue: 0
+    bonusPerLevel: 0
+  castSound: {fileID: 8300000, guid: d5af5069b8c0dda44b1bc5d52b48dd40, type: 3}
+  bloodMaxBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  spiritMaxBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  furyMaxBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  staminaMaxBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  cannotRemove: 0
+  blockNerfs: 0
+  blockBuffs: 0
+  healthMaxBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  manaMaxBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  damageBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  defenseBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  blockChanceBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  criticalChanceBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  healthPercentPerSecondBonus:
+    baseValue: 20
+    bonusPerLevel: 0
+  manaPercentPerSecondBonus:
+    baseValue: 20
+    bonusPerLevel: 0
+  speedBonus:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsArmor:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsDodgePhysicalChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsDodgeSpellChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsDodgePhysicalDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsDodgeSpellDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBlockPhysicalChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBlockSpellChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBlockPhysicalDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBlockSpellDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsWillpower:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsAttack:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsHitChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsSpellHitChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsCritChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsSpellCritChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsCritDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsSpellCritDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBackstabDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsFlankDamageMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsCastSpeedMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsMoveSpeedMultiplier:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsShieldMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsShieldRegenRate:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsLifeMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsLifeRegenRate:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBloodMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBloodRegenRate:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsSpiritMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsSpiritRegenRate:
+    baseValue: 20
+    bonusPerLevel: 0
+  buffsManaMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsManaRegenRate:
+    baseValue: 20
+    bonusPerLevel: 0
+  buffsFuryMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsFuryRegenRate:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsStaminaMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsStaminaRegenRate:
+    baseValue: 20
+    bonusPerLevel: 0
+  buffsBarrierMax:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffsBarrierRegenRate:
+    baseValue: 0
+    bonusPerLevel: 0
+  buffTime:
+    baseValue: 10
+    bonusPerLevel: 0
+  remainAfterDeath: 0
+  effect: {fileID: 0}
+  canBuffSelf: 1
+  canBuffOthers: 0
+  canBuffEnemies: 0

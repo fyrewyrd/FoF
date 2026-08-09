@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665f30164fc2c5743bd866a868a4b491, type: 3}
+  m_Name: Quick Shot - V
+  m_EditorClassIdentifier: 
+  addedCooldown: 0
+  nextSkill: {fileID: 0}
+  unlearnable: 1
+  disadvantageous: 0
+  followupDefaultAttack: 0
+  toolTip: 
+  image: {fileID: 0}
+  learnDefault: 0
+  showCastBar: 0
+  cancelCastIfTargetDied: 0
+  predecessor: {fileID: 0}
+  predecessorLevel: 1
+  requiredWeaponCategory: 
+  requiredLevel:
+    baseValue: 0
+    bonusPerLevel: 0
+  requiredSkillExperience:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxLevel: 1
+  manaCosts:
+    baseValue: 0
+    bonusPerLevel: 0
+  castTime:
+    baseValue: 0
+    bonusPerLevel: 0
+  cooldown:
+    baseValue: 0
+    bonusPerLevel: 0
+  castRange:
+    baseValue: 0
+    bonusPerLevel: 0
+  castSound: {fileID: 0}
+  approachTarget: 1
+  autoTargeting: 1
+  autoTargetSelf: 0
+  canTargetCorpses: 0
+  costs:
+    me:
+      shield: 0
+      life: 0
+      mana: 0
+      blood: 0
+      spirit: 0
+      stamina: 0
+      fury: 0
+    pet:
+      shield: 0
+      life: 0
+      mana: 0
+      blood: 0
+      spirit: 0
+      stamina: 0
+      fury: 0
+    mount:
+      shield: 0
+      life: 0
+      mana: 0
+      blood: 0
+      spirit: 0
+      stamina: 0
+      fury: 0
+  onCastStartVisualEffect: {fileID: 0}
+  onCastFinishVisualEffect: {fileID: 0}
+  onHitVisualEffect: {fileID: 0}
+  launchedProjectile: {fileID: 0}
+  launchedProjectileSpeed: 35
+  weaponConfig:
+    useWeaponDamageMethod: 0
+    useWeaponElement: 1
+    addDamage: 0
+    addDOT: 1
+    addStatusEffects: 1
+    addCooldown: 1
+  skillDamage:
+    damage:
+      method: 1
+      element: 0
+      fixedDamage: 1
+      _max: 0
+      _min: 0
+      bonus: 0
+      multiplier: 1
+    properties:
+      nonAggressive: 0
+      directDamage: 0
+      penetrateReflect: 0
+      lifeLeech: 0
+      nonAbsorbable: 0
+      nonResistable: 0
+      unavoidable: 0
+      unblockable: 0
+      nonSneakAttack: 0
+    tactics:
+      useTactics: 0
+      knockbackDistance: 0
+      knockasideDistance: 0
+      knockupDistance: 0
+      chargeToDistanceFrom: 0
+      pullToDistanceFrom: 0
+    status:
+      statusEffects: []
+    damageTickInterval: 1
+    damageOverTime: []
+  damage:
+    baseValue: 1
+    bonusPerLevel: 0
+  stunChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  stunTime:
+    baseValue: 0
+    bonusPerLevel: 0
