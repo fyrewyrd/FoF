@@ -490,119 +490,66 @@ public partial class Database : MonoBehaviour
         }
     }
 
-    public GameObject CharacterLoad(string characterName, List<Player> prefabs, bool isPreview)
+ public GameObject CharacterLoad(string characterName, List<Player> prefabs, bool isPreview)
+{
+    characters row = connection.FindWithQuery<characters>(
+        "SELECT * FROM characters WHERE name=? AND deleted=0", characterName);
+    if (row == null) return null;
+
+    Player prefab = prefabs.Find(p => p.name == row.classname);
+    if (prefab == null) return null;
+
+    GameObject go = Instantiate(prefab.gameObject);
+    Player player = go.GetComponent<Player>();
+
+    Vector3 dbPosition = new Vector3(row.x, row.y, row.z);
+
+    // Agent must stay off until the world scene places the player
+    NavMeshAgent agent = go.GetComponent<NavMeshAgent>();
+    if (agent != null)
+        agent.enabled = false;
+
+    if (isPreview)
     {
-        characters row = connection.FindWithQuery<characters>(
-            "SELECT * FROM characters WHERE name=? AND deleted=0", characterName);
+        // Lobby preview only – optional placement near selection
+        go.transform.position = dbPosition;
+    }
+    else
+    {
+        // Real load: keep DB position as a hint only; NetworkManager will
+        // move to world spawn after "World of Faoria" loads.
+        // Do NOT SamplePosition / Warp / enable agent here.
+        go.transform.position = dbPosition;
+        Debug.Log($"[Database] Loaded '{characterName}' at DB pos {dbPosition} (agent disabled)");
+    }
 
-        if (row == null) return null;
+    player.name = row.name;
+    player.account = row.account;
+    player.className = row.classname;
+    player.level = Mathf.Min(row.level, player.maxLevel);
+    player.strength = row.strength;
+    player.intelligence = row.intelligence;
+    player.experience = row.experience;
+    player.skillExperience = row.skillExperience;
+    player.gold = row.gold;
+    player.coins = row.coins;
 
-        Player prefab = prefabs.Find(p => p.name == row.classname);
-        if (prefab == null) return null;
+    LoadInventory(player);
+    LoadEquipment(player);
+    LoadSkills(player);
+    LoadBuffs(player);
+    LoadQuests(player);
+    LoadGuildOnDemand(player);
 
-        // Instantiate
-        GameObject go = Instantiate(prefab.gameObject);
-        Player player = go.GetComponent<Player>();
+    player.health = row.health;
+    player.mana = row.mana;
 
-        // -------------------------------------------------
-        // Position logic
-        // -------------------------------------------------
-        Vector3 dbPosition = new Vector3(row.x, row.y, row.z);
-        Vector3 spawnPos = dbPosition;
+    if (!isPreview)
+        connection.Execute("UPDATE characters SET online=1, lastsaved=? WHERE name=?",
+            DateTime.UtcNow, characterName);
 
-        // Treat (0,0,0) or positions very close to selection nodes as "first time"
-        bool isFirstTime = (dbPosition == Vector3.zero) || IsNearSelectionNode(dbPosition);
-
-        if (isFirstTime && !isPreview)
-        {
-            // Prefer real world start positions
-            if (NetworkManager.startPositions != null && NetworkManager.startPositions.Count > 0)
-            {
-                spawnPos = NetworkManager.startPositions[0].position;
-                Debug.Log($"[Database] First-time character → using NetworkStartPosition at {spawnPos}");
-            }
-        }
-
-        // -------------------------------------------------
-        // NavMesh safety
-        // -------------------------------------------------
-        NavMeshAgent agent = go.GetComponent<NavMeshAgent>();
-        if (agent != null)
-        {
-            agent.enabled = false;
-
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(spawnPos, out hit, 30f, NavMesh.AllAreas))
-            {
-                go.transform.position = hit.position;
-                agent.Warp(hit.position);
-                agent.enabled = true;
-                Debug.Log($"[Database] Agent placed at {hit.position}");
-            }
-            else
-            {
-                go.transform.position = spawnPos;
-                Debug.LogWarning($"[Database] No NavMesh hit for {characterName}, using raw position");
-            }
-        }
-        else
-        {
-            go.transform.position = spawnPos;
-        }
-
-        // === REST OF ORIGINAL CODE ===
-        player.name = row.name;
-        player.account = row.account;
-        player.className = row.classname;
-        player.level = Mathf.Min(row.level, player.maxLevel);
-        player.strength = row.strength;
-        player.intelligence = row.intelligence;
-        player.experience = row.experience;
-        player.skillExperience = row.skillExperience;
-        player.gold = row.gold;
-        player.coins = row.coins;
-
-        if (player.GetComponent<NavMeshAgent>() == null)
-            player.Warp(go.transform.position);
-
-        LoadInventory(player);
-        LoadEquipment(player);
-        LoadSkills(player);
-        LoadBuffs(player);
-        LoadQuests(player);
-        LoadGuildOnDemand(player);
-
-        player.health = row.health;
-        player.mana = row.mana;
-
-       // if (!isPreview)
-          //  connection.Execute("UPDATE characters SET online=1, lastsaved=? WHERE name=?", DateTime.UtcNow,
-           //     characterName);
-           // Temporary force – remove after testing
-           if (!isPreview)
-           {
-               if (NetworkManager.startPositions.Count > 0)
-                   spawnPos = NetworkManager.startPositions[0].position;
-           }
-
-        Utils.InvokeMany(typeof(Database), this, "CharacterLoad_", player);
-
-        return go;
-
-        // Helper – you can improve this later
-        bool IsNearSelectionNode(Vector3 pos)
-        {
-            NetworkManagerMMO mmo = NetworkManager.singleton as NetworkManagerMMO;
-            if (mmo == null || mmo.selectionLocations == null) return false;
-
-            foreach (Transform loc in mmo.selectionLocations)
-            {
-                if (loc != null && Vector3.Distance(pos, loc.position) < 3f)
-                    return true;
-            }
-
-            return false;
-        }
+    Utils.InvokeMany(typeof(Database), this, "CharacterLoad_", player);
+    return go;
     }
 
     void SaveInventory(Player player)

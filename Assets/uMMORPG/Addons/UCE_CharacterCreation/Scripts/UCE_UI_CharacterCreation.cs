@@ -81,7 +81,9 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
     // -----------------------------------------------------------------------------------
     public void Show()
     {
-
+        Debug.Log("[Creation] Show() called");
+        Debug.Log($"[Creation] panel null? {panel == null} | activeSelf before: {(panel != null ? panel.activeSelf.ToString() : "null")}");
+        
         centerPanel.SetActive(true);
         centerPanel2.SetActive(true);
 
@@ -260,12 +262,18 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
 
     public void SelectClothing(int index)
     {
-        bool male = dca.activeRace.name == "HumanMale" ? true : false;
+        if (dca == null || dca.activeRace == null || dca.activeRace.data == null)
+        {
+            Debug.LogWarning("[UMA] Avatar or Race not ready – skipping SelectClothing");
+            return;
+        }
+
+        bool male = dca.activeRace.name == "HumanMale";
         dca.ClearSlot("Underwear");
 
         if (male)
             dca.SetSlot(maleClothing[index]);
-        if (!male)
+        else
             dca.SetSlot(femaleClothing[index]);
 
         dca.BuildCharacter();
@@ -273,6 +281,12 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
 
     public void SelectHair(int index)
     {
+        if (dca == null || dca.activeRace == null || dca.activeRace.data == null)
+        {
+            Debug.LogWarning("[UMA] Avatar or Race not ready – skipping SelectHair");
+            return;
+        }
+        
         bool male = dca.activeRace.name == "HumanMale" ? true : false;
         dca.ClearSlot("Hair");
 
@@ -286,6 +300,12 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
 
     public void SwitchGender(string genderName)
     {
+        if (dca == null)
+        {
+            Debug.LogWarning("[UMA] Avatar not ready – skipping SwitchGender");
+            return;
+        }
+        
         dca.ChangeRace(genderName);
 
         if (genderName == "HumanMale")

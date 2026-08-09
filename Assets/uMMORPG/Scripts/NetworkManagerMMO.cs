@@ -117,18 +117,10 @@ public partial class NetworkManagerMMO : NetworkManager
     {
         base.OnStartClient();
 
-        //Debug.Log("[Client] OnStartClient fired");
         Debug.Log($"[Login] Connecting to {NetworkManager.singleton.networkAddress}:7777");
 
-        NetworkClient.ReplaceHandler<ErrorMsg>(
-            (msg, channel) => OnClientError(null, msg),
-            false
-        );
-
-        NetworkClient.ReplaceHandler<CharactersAvailableMsg>(
-            (msg, channel) => OnCharactersAvailable(null, msg),
-            false
-        );
+        NetworkClient.ReplaceHandler<ErrorMsg>(OnClientError, false);
+        NetworkClient.ReplaceHandler<CharactersAvailableMsg>(OnCharactersAvailable, false);
 
         // Critical for Host mode
         if (NetworkClient.isConnected && !NetworkClient.ready)
@@ -140,7 +132,7 @@ public partial class NetworkManagerMMO : NetworkManager
         Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnStartClient_");
     }
 
-    void OnClientError(NetworkConnectionToClient conn, ErrorMsg msg)
+    void OnClientError(ErrorMsg msg)
     {
         Debug.LogWarning($"Client Error: {msg.text}");
         if (uiPopup != null) uiPopup.Show(msg.text);
@@ -149,15 +141,13 @@ public partial class NetworkManagerMMO : NetworkManager
             NetworkClient.Disconnect();
     }
 
-    void OnCharactersAvailable(NetworkConnectionToClient conn, CharactersAvailableMsg msg)
+    void OnCharactersAvailable(CharactersAvailableMsg msg)
     {
         Debug.Log($"[Client] OnCharactersAvailable received {msg.characters.Length} characters");
         charactersAvailableMsg = msg;
         state = NetworkState.Lobby;
 
-        // Call the camera positioning hook
         OnClientCharactersAvailable_(msg);
-
         Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnClientCharactersAvailable_", msg);
     }
     
@@ -597,42 +587,82 @@ void OnServerCharacterDelete(NetworkConnectionToClient conn, CharacterDeleteMsg 
         }
     }
 
-    public override void OnServerSceneChanged(string sceneName)
+public override void OnServerSceneChanged(string sceneName)
+{
+    base.OnServerSceneChanged(sceneName);
+
+    if (sceneName != "World of Faoria")
+        return;
+
+    Debug.Log($"[Server] World of Faoria loaded – pendingPlayers.Count = {pendingPlayers.Count}");
+
+    // Resolve spawn only after the world scene is loaded
+    Transform spawn = null;
+    NetworkStartPosition[] starts = FindObjectsOfType<NetworkStartPosition>();
+    if (starts != null && starts.Length > 0)
+        spawn = starts[0].transform;
+
+    // Optional named fallback if you use a specific object:
+    // if (spawn == null)
+    // {
+    //     GameObject named = GameObject.Find("first time spawn in");
+    //     if (named != null) spawn = named.transform;
+    // }
+
+    foreach (var kvp in pendingPlayers)
     {
-        base.OnServerSceneChanged(sceneName);
+        NetworkConnectionToClient conn = kvp.Key;
+        GameObject playerGO = kvp.Value;
 
-        if (sceneName != "World of Faoria") return;
-
-        Debug.Log($"[Server] World of Faoria finished loading – pendingPlayers.Count = {pendingPlayers.Count}");
-
-        foreach (var kvp in pendingPlayers)
+        if (conn == null || playerGO == null)
         {
-            NetworkConnectionToClient conn = kvp.Key;
-            GameObject playerGO = kvp.Value;
+            Debug.LogWarning("[Server] Skipping null pending player entry");
+            continue;
+        }
 
-            Debug.Log($"[Server] Checking entry → conn null? {conn == null} | playerGO null? {playerGO == null}");
+        if (!conn.isAuthenticated)
+        {
+            conn.isAuthenticated = true;
+            Debug.Log($"[Server] Re-authenticated connection {conn.connectionId}");
+        }
 
-            if (conn != null && playerGO != null)
+        // Place on world spawn
+        if (spawn != null)
+        {
+            playerGO.transform.position = spawn.position;
+            playerGO.transform.rotation = spawn.rotation;
+            Debug.Log($"[Server] Placed player at spawn {spawn.position}");
+        }
+        else
+        {
+            Debug.LogWarning("[Server] No NetworkStartPosition in World of Faoria – player left at current position");
+        }
+
+        NetworkServer.AddPlayerForConnection(conn, playerGO);
+        Debug.Log($"[Server] AddPlayerForConnection conn={conn.connectionId} go={playerGO.name}");
+
+        // Put agent on NavMesh
+        var agent = playerGO.GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.enabled = false;
+
+            Vector3 pos = playerGO.transform.position;
+            if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 30f, NavMesh.AllAreas))
             {
-                if (!conn.isAuthenticated)
-                {
-                    conn.isAuthenticated = true;
-                    Debug.Log($"[Server] Re-authenticated connection {conn.connectionId}");
-                }
-
-                NetworkServer.AddPlayerForConnection(conn, playerGO);
-                Debug.Log($"[Server] Spawned player for connection {conn.connectionId}");
-
-                // Re-enable NavMeshAgent after a short delay so everything is settled
-                StartCoroutine(ReenableAgentAfterSpawn(playerGO));
+                playerGO.transform.position = hit.position;
+                agent.Warp(hit.position);
+                agent.enabled = true;
+                Debug.Log($"[Agent] On NavMesh at {hit.position} isOnNavMesh={agent.isOnNavMesh}");
             }
             else
             {
-                Debug.LogWarning("[Server] Skipped entry because conn or playerGO was null");
+                Debug.LogWarning($"[Agent] No NavMesh near {pos} – agent left disabled");
             }
         }
+    }
 
-        pendingPlayers.Clear();
+    pendingPlayers.Clear();
     }
     System.Collections.IEnumerator ReenableAgentAfterSpawn(GameObject player)
     {
@@ -681,6 +711,27 @@ void OnServerCharacterDelete(NetworkConnectionToClient conn, CharacterDeleteMsg 
                 Debug.LogWarning("[Client] localPlayer exists but isLocalPlayer is false – this is the problem state");
             }
         }
+    }
+    
+    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    {
+        // Clean up lobby so the same account can log in again
+        if (lobby.ContainsKey(conn))
+        {
+            Debug.Log($"[Server] Removing account '{lobby[conn]}' from lobby on disconnect");
+            lobby.Remove(conn);
+        }
+
+        // Also clean up any pending player that never got spawned
+        if (pendingPlayers.ContainsKey(conn))
+        {
+            GameObject go = pendingPlayers[conn];
+            if (go != null)
+                Destroy(go);
+            pendingPlayers.Remove(conn);
+        }
+
+        base.OnServerDisconnect(conn);
     }
 
     System.Collections.IEnumerator DelayedReadyCheck()

@@ -25,60 +25,50 @@ public class NetworkAuthenticatorMMO : NetworkAuthenticator
     {
         base.OnStartClient();
 
-        // Register message handlers on the client
-        NetworkClient.RegisterHandler<ErrorMsg>(
-            (msg, channel) => OnClientError(null, msg), 
-            false
-        );
+        NetworkClient.RegisterHandler<ErrorMsg>(OnClientError, false);
+        NetworkClient.RegisterHandler<LoginSuccessMsg>(OnClientLoginSuccess, false);
 
-        NetworkClient.RegisterHandler<LoginSuccessMsg>(
-            (msg, channel) => OnClientLoginSuccess(null, msg), 
-            false
-        );
-
-        // addon system hooks
         Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnStartClient_");
     }
 
     /// <summary>
     /// Called on the CLIENT when server sends an ErrorMsg (login failed, version mismatch, etc.)
     /// </summary>
-    void OnClientError(NetworkConnectionToClient conn, ErrorMsg msg)
+    void OnClientError(ErrorMsg msg)
     {
         Debug.LogWarning($"Client received error: {msg.text}");
 
         // TODO: Uncomment when uiPopup is assigned in inspector
         // if (uiPopup != null)
         //     uiPopup.Show(msg.text);
-
+        
+        Debug.LogWarning($"Client received error: {msg.text}");
         if (msg.causesDisconnect)
-        {
             NetworkClient.Disconnect();
-        }
     }
 
-    void OnClientLoginSuccess(NetworkConnectionToClient conn, LoginSuccessMsg msg)
+    void OnClientLoginSuccess(LoginSuccessMsg msg)
     {
-        // Authentication successful on server → client is now authenticated
+        Debug.Log("[Auth] LoginSuccessMsg received on client");
         OnClientAuthenticated.Invoke();
-
-        // Update state so UI can show character selection
-        manager.state = NetworkState.Handshake;
+        // Do NOT set state here
     }
 
-    public void OnClientAuthenticate(NetworkConnectionToClient conn)
+    public override void OnClientAuthenticate()
     {
         // Send login request with hashed password
         string hash = Utils.PBKDF2Hash(loginPassword, passwordSalt + loginAccount);
-        LoginMsg message = new LoginMsg 
-        { 
-            account = loginAccount, 
-            password = hash, 
-            version = Application.version 
+        LoginMsg message = new LoginMsg
+        {
+            account = loginAccount,
+            password = hash,
+            version = Application.version
         };
 
-        conn.Send(message);
-        Debug.Log("Login message sent to server.");
+        NetworkClient.connection.Send(message);
+        
+        Debug.Log($"[Auth] Client about to send LoginMsg for account: {loginAccount}");
+        Debug.Log("[Auth] LoginMsg sent");
 
         manager.state = NetworkState.Handshake;
     }
@@ -102,10 +92,12 @@ public class NetworkAuthenticatorMMO : NetworkAuthenticator
     public override void OnServerAuthenticate(NetworkConnectionToClient conn)
     {
         // We wait for LoginMsg from client - nothing to do here
+        Debug.Log($"[Auth] OnServerAuthenticate called for connectionId: {conn.connectionId}");
     }
 
     void OnServerLogin(NetworkConnectionToClient conn, LoginMsg msg)
     {
+        Debug.Log($"[Auth] OnServerLogin received for account: {msg.account}");
         if (msg.version != Application.version)
         {
             manager.ServerSendError(conn, "Version mismatch", true);

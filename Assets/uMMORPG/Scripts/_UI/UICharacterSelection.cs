@@ -31,9 +31,10 @@ public partial class UICharacterSelection : MonoBehaviour
         startButton.onClick.RemoveAllListeners();
         startButton.onClick.AddListener(() =>
         {
-            NetworkClient.Ready();
+// Client is already ready from login – do NOT call Ready() again
             if (NetworkClient.connection != null)
                 NetworkClient.connection.Send(new CharacterSelectMsg { index = manager.selection });
+
             manager.ClearPreviews();
             panel.SetActive(false);
         });
@@ -56,8 +57,10 @@ public partial class UICharacterSelection : MonoBehaviour
         createButton.onClick.RemoveAllListeners();
         createButton.onClick.AddListener(() =>
         {
+            Debug.Log("[UI] Create button clicked");
             panel.SetActive(false);
             uiCharacterCreation.Show();
+            Debug.Log($"[UI] After Show() – creation visible? {uiCharacterCreation.IsVisible()}");
         });
 
         // Quit Button
@@ -69,14 +72,19 @@ public partial class UICharacterSelection : MonoBehaviour
     {
         if (manager.state != NetworkState.Lobby)
         {
-            if (panel.activeSelf) Debug.Log("[UI] Hiding panel - not in Lobby state");
-            panel.SetActive(false);
+            if (panel.activeSelf) panel.SetActive(false);
             return;
         }
 
         if (manager.charactersAvailableMsg.characters == null)
         {
-            Debug.Log("[UI] Waiting for character data...");
+            panel.SetActive(false);
+            return;
+        }
+
+        // Don't force the selection panel on while character creation is open
+        if (uiCharacterCreation != null && uiCharacterCreation.IsVisible())
+        {
             panel.SetActive(false);
             return;
         }
