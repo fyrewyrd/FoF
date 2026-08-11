@@ -1,0 +1,236 @@
+Thank you for your purchase. 
+Our other projects you can see https://assetstore.unity.com/publishers/37837
+We are waiting for your feedback on asset store
+Best wishes the development team GFF
+Support us on patreon  https://www.patreon.com/GameFunSPB
+Contacts : email "GameFunSPB@gmail.com"; Discord  "GameFunSPB#2037"
+
+
+Addon name : Item Upgrade
+Addon version : 1.15
+Date of creation / editing 19.09.2021
+Require Components : Addons Core, Texture, Sounds
+Recommended Components : Item Rarity
+Compatible projects : uMMORPG 1.194, uMMORPG 2D 1.63
+Recommendations : Test the addon on a clean version uMMORPG without changes.
+Link : http://u3d.as/1nE5
+
+Versions for other projects:
+ * uMMORPG Remastered  http://u3d.as/1SiK
+ * uSurvival  http://u3d.as/1X6T
+ * uRPG http://u3d.as/2iCX
+
+Small set of Addons for uMMORPG Classic and 2D http://u3d.as/1pms
+All Addons for uMMORPG Classic and 2D http://u3d.as/25bQ
+All Addons for uMMORPG Remastered https://u3d.as/2AEs
+
+
+                                      Installation and Configuration
+
+1. Edit the "EquipmentItem.cs"  Script in “/Scripts/ScriptableItems/" 
+    a)    Find line       public class EquipmentItem : UsableItem
+          change to       public partial class EquipmentItem : UsableItem
+
+
+    b)  find and comment out this lines
+	     tip.Replace("{DAMAGEBONUS}", damageBonus.ToString());
+         tip.Replace("{DEFENSEBONUS}", defenseBonus.ToString());
+
+
+2. Edit the "ScriptableItem.cs"  Script in “/Scripts/" 
+    a)    Find line       public struct ScriptableItemAndAmount
+          change to       public partial struct ScriptableItemAndAmount
+
+
+3. Edit the "ItemDropChance.cs"  Script in “/Scripts/" 
+    a)    Find line       public class ItemDropChance
+          change to       public partial class ItemDropChance
+
+
+4. Edit the "Database.cs" Script in “Assets/uMMORPG/Scripts/" 
+   a) after line       class character_inventory
+       add lines       partial class character_inventory
+
+	   in void "LoadInventory" and "LoadEquipment"
+   b) after line       Item item = new Item(itemData);
+       add lines       item.holes = row.holes;
+                       item.upgradeInd = LoadUpgradeInd(row.upgradeInd); 
+
+
+       in void "SaveInventory" and "SaveEquipment"
+   c) after line       amount = slot.amount,
+       add lines       holes = slot.item.holes,
+                       upgradeInd = SaveUpgradeInd(slot.item),
+
+
+5. Edit the "Item.cs" Script in “Assets/uMMORPG/Scripts/" 
+   a) before line       summoned = null;
+        add lines       holes = 0;
+                        upgradeInd = null;
+
+
+6. Edit the "UIUpgrade.cs"  Script in “Assets/uMMORPG/Addons/" 
+       for uMMORPG 2d
+      find the line      else if (operatingMode == EnchantmentAddonMode.npc && player.target != null && player.target is Npc && Utils.ClosestDistance(player, player.target) <= player.interactionRange) return true;
+         replace it      else if (operatingMode == EnchantmentAddonMode.npc && player.target != null && player.target is Npc && Utils.ClosestDistance(player.collider, player.target.collider) <= player.interactionRange) return true;
+
+
+//if used origanal Inventory
+7. Edit the "UIInventory.cs" Script in “ Assets/uMMORPG/Scripts/_UI "
+     a) find the line    public UIInventorySlot slotPrefab;
+	       replace it    public UniversalSlot slotPrefab;
+
+     b) find the line    UIInventorySlot slot = content.GetChild(i).GetComponent<UIInventorySlot>();
+	       replace it    UniversalSlot slot = content.GetChild(i).GetComponent<UniversalSlot>(); 
+
+     c)    After line    slot.amountText.text = itemSlot.amount.ToString();
+	        add lines    slot.upgradeText.text = itemSlot.item.upgradeInd != null && itemSlot.item.upgradeInd.Length > 0 ? "+" + itemSlot.item.upgradeInd.Length : "";
+
+     d)    After line    slot.amountOverlay.SetActive(false);
+	         add line    slot.upgradeText.text = "";
+
+
+//if used origanal Equipment
+8. Edit the "UIEquipment.cs" Script in “ Assets/uMMORPG/Scripts/_UI "
+     a) find the line     public UIEquipmentSlot slotPrefab;
+	       replace it     public UniversalSlot slotPrefab;
+
+     b)    After line     public Transform content;
+	         add line     public bool categories;
+
+     g)    After line     ItemSlot itemSlot = player.equipment[i];
+	         add line     slot.dragAndDropable.tag = "EquipmentSlot";
+
+     f) find the line     slot.categoryOverlay.SetActive(player.equipmentInfo[i].requiredCategory != "");
+	       replace it     slot.categoryOverlay.SetActive(categories);
+
+	 c) find the line     UIEquipmentSlot slot = content.GetChild(i).GetComponent<UIEquipmentSlot>();
+	       replace it     UniversalSlot slot = content.GetChild(i).GetComponent<UniversalSlot>(); 
+
+     d)    After line     slot.amountText.text = itemSlot.amount.ToString();
+	        add lines     slot.upgradeText.text = itemSlot.item.upgradeInd != null && itemSlot.item.upgradeInd.Length > 0 ? "+" + itemSlot.item.upgradeInd.Length : "";
+
+     e)    After line     slot.amountOverlay.SetActive(false);
+	         add line     slot.upgradeText.text = "";
+
+
+
+9. Edit the "Player.cs"  Script in “Assets/uMMORPG/Scripts/" 
+
+//damge
+        find the line     equipmentBonus += ((EquipmentItem)slot.item.data).damageBonus;
+	       replace it     equipmentBonus += slot.item.BonusAsPercentageOfEnchantment(((EquipmentItem)slot.item.data).damageBonus, runeType.damage);
+
+
+//defense
+        find the line     equipmentBonus += ((EquipmentItem)slot.item.data).defenseBonus;
+	       replace it     equipmentBonus += slot.item.BonusAsPercentageOfEnchantment(((EquipmentItem)slot.item.data).defenseBonus, runeType.defense);
+
+
+
+
+	                                     Installation:
+1. a) Drag the "GFF Item Enchantment.prefab" (Addons\GFF Item Upgrade (item enchantment system)\Prefabs\) to the canvas element so canvas is the parent.
+
+   b) If you want to use the Enchant addon via NpcDialogue
+       - Drag the "ButtonEnchantmentNpc.prefab" (Addons\GFF Item Upgrade (item enchantment system)\Prefabs\) to the Canvas\NpcDialogue\NpcDialoguePanel\PanelButtons\
+
+       - Select the "NpcDialogue" object. In the inspector, there are two new settings.
+               Drag in "Button Enchantment" the button in NpcDialogue\NpcDialoguePanel\PanelButtons\ButtonEnchantmentNpc
+
+       - Edit the "UINpcDialogue.cs" Script in “ Assets/uMMORPG/Scripts/_UI " 
+             after line       welcomeText.text = npc.welcome;
+               add line       Utils.InvokeMany(typeof(UINpcDialogue), this, "Update_", player, npc);
+
+
+   c) If you want to use the Enchant addon via Shortcuts
+       - Drag the "ButtonEnchantmentShortcuts.prefab" (Addons\GFF Item Upgrade (item enchantment system)\Prefabs\) to the Canvas\Shortcuts\ShortcutsPanel\
+
+       - Select the "Shortcuts" object. In the inspector, there are two new settings.
+               Drag in "Button Enchantment" the button in Shortcuts\ShortcutsPanel\ButtonEnchantmentShortcuts
+
+       - Edit the " UIShortcuts.cs" Script in “ Assets/uMMORPG/Scripts/_UI " 
+             after line       else panel.SetActive(false); // hide
+               add line       Utils.InvokeMany(typeof(UIShortcuts), this, "Update_", player);
+
+
+2. Copy folder "GFF Gems and Runes" from (Addons\GFF Item Upgrade (item enchantment system)\Items\)  to folder  (uMMORPG\Resources\Items\)
+	    
+
+3. Select the npc on the Scene. In the inspector in the script "NPC" additional settings will appear
+   a) "Item Enchantment" - enables or disables enchantment through this npc (must be enabled) 
+   b) "Character Level Required" - character level from which the ability to enchant items is available to him (must be at least 1)
+   c) "Character Class Required" - what classes can enchant items (Add 2 values per array "Warrior" and "Archer")
+   d) "Amount of Slots For Enchantment In Items Sold" - how many will be enchantment slots for items purchased from a merchant ()
+
+
+4. Select the "Inventory" (Canvas\GFF Inventory) object. In the inspector
+         Drag in "slot Prefab" the "SlotUniversal.prefab" (Addons\GFF Addons Core\Prefabs\)
+
+
+5. Select the "Equipment" (Canvas\Equipment) object. In the inspector
+		 Drag in "slot Prefab" the "SlotUniversal.prefab" (Addons\GFF Addons Core\Prefabs\)
+
+
+6. All items (uMMORPG\Resources\Items\Equipment)
+  a) expand Runes list and add runes with which can enchant this item from folder (uMMORPG\Resources\Items\GFF Gems and Runes\) - prefabs to rune sheet
+  b) in field "Tool Tip" add line  "Enchantment: {UPGRADE}"
+
+
+
+                                      Extensions:
+1. If you bought and configured our addon "Item Rarity" https://assetstore.unity.com/packages/tools/integration/item-rarity-for-ummorpg-and-ummorpg-2d-158307
+   from version 1.4 - it will automatically connect and start working
+
+2. If you bought and configured our addon "Item Durability" https://assetstore.unity.com/packages/tools/integration/item-durability-for-ummorpg-152377
+   from version 1.3 - it will automatically connect and start working
+
+
+
+
+
+                                      Information
+1) You need to set the value for how much you can enchant an item - you can do it with a script Upgrade.cs (public static int MaxUpgrade = 7;)
+
+2) Values: a) holes - the number of holes in the item for enchanting his rune
+		   b) upgrdaeIND - with which rune the item was enchanted
+
+3) Settings in script Upgrade.cs
+    1) bool NeedHoles - Are holes for enchantment necessary?
+	2) bool DifferentRunes - Can the item be enchanted with different runes? (for example, shield - defense and attack)
+	3) bool ConsiderItemLevel - Does item level affect enchantment chance  (for example, the higher the level the harder to enchant)
+	4) float DifficultyOfEnchantment - value of the base complexity of enchantment
+	5) info time - time which displays a message in the enchantment panel
+	6) bool UseTheChanceOfRarityItem - depending on the rarity of the item, it may have its own value which is used when enchanting (DefaultBaseChance)
+	7) float DefaultBaseChance - value of DefaultBaseChance if bool UseTheChanceOfRarityItem = false
+
+	8) bool ItemDestruction - can the item be destroyed if unsuccessful enchantment
+	9) bool RunesDestruction - can all the runes inserted in the item be destroyed if the enchantment is unsuccessful
+
+   10)  bool show Successfully Enchantment On Chat -
+   11)  int show Successfully Enchantment Amount -
+   12)  bool show Failed Enchantment On Chat -
+   13)  int show Failed Enchantment Amount -
+
+
+
+ 4)  if you use our addon that adds amulets, rings and earrings then comment 2 lines in the script "Upgrade Partial.cs"
+      a)   if (equipment[i].amount > 0) damagePercent = damagePercent + ((EquipmentItem)equipment[i].item.data).damagePercent;
+      b)   if (equipment[i].amount > 0) defensePercent = defensePercent + ((EquipmentItem)equipment[i].item.data).defensePercent;
+
+
+
+                                      How the enchantment system works
+
+
+6. Edit the "Monster.cs"  Script in “Assets/uMMORPG/Scripts/" 
+      find the line      inventory.Add(new ItemSlot(new Item(itemChance.item)));
+         replace it      inventory.Add(new ItemSlot(new Item(itemChance.item), 1, Random.Range(itemChance.minAmountHolesForUpgrade, itemChance.maxAmountHolesForUpgrade), 0, new int[UIUpgrade.maxUpgrade]));
+
+
+
+
+
+
+
+
