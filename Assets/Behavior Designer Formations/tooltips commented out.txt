@@ -1,0 +1,206 @@
+Behavior Designer commented out code
+
+V.cs
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+
+circle.cs 
+        //[Tooltip("The radius of the circle")]
+        public SharedFloat radius = 5;
+		
+Arc.cs
+        //[Tooltip("The radius of the arc")]
+        public SharedFloat radius = 5;
+        //[Tooltip("Is the arc concave?")]
+        public SharedBool concave = true;
+		
+Triangle.cs
+        //[Tooltip("The length of the triangle")]
+        public SharedFloat length = 5;
+		
+		
+Square.cs
+        //[Tooltip("The minimum separation between two agents")]
+        public SharedVector2 minSeparation = new Vector2(1, 1);
+        //[Tooltip("The maximum separation between two agents")]
+        public SharedVector2 maxSeparation = new Vector2(3, 3);
+		
+Column.cs
+        [Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        [Tooltip("The number of columns to form")]
+        public SharedInt columns = 1;
+		
+Row.cs
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        //[Tooltip("The number of rows to form")]
+        public SharedInt rows = 1;
+		
+Diamond.cs
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        //[Tooltip("Should the back agents have a left and right offset?")]
+        public SharedBool backPositionOffset = false;
+		
+Grid.cs
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+		
+Line.cs
+        //[Tooltip("The separation between agents")]
+        public SharedFloat separation = 2;
+        //[Tooltip("Should the formation be to the right of the leader?")]
+        public SharedBool right;
+Eschelon.cs
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        //[Tooltip("Should the formation be to the right of the leader?")]
+        public SharedBool right;
+
+FormationGroup.cs
+        //[Tooltip("The leader to follow. If null then the current agent will lead")]
+        public SharedGameObject leader;
+        //[Tooltip("Specifies the group index of the leader behavior tree. This is not necessary if there is only one behavior tree on the leader")]
+        public SharedInt leaderGroupIndex;
+        //[Tooltip("The target destination")]
+        public SharedTransform targetTransform;
+        //[Tooltip("The target destination Vector3 position. Used if targetTransform is null")]
+        public SharedVector3 targetPosition;
+        //[Tooltip("The distance to look ahead to the destination. The higher the value the better the agent will avoid obstacles and less keep formation")]
+        public SharedFloat lookAhead = 4;
+        //[Tooltip("The agent move speed after the group has formed")]
+        public SharedFloat fullSpeed = 3.5f;
+        //[Tooltip("The agent move speed as the group is forming")]
+        public SharedFloat formationSpeed = 2f;
+        //[Tooltip("The agent move speed if waiting for another agent to join")]
+        public SharedFloat slowdownSpeed = 1;
+        //[Tooltip("The agent move speed if falling behind the formation")]
+        public SharedFloat catchupSpeed = 3f;
+        //[Tooltip("The amount of time to wait until the group starts forming")]
+        public SharedFloat waitTime = 0;
+       // [Tooltip("Should the agent wait to move when new agents are added?")]
+        public SharedBool waitToMove = true;
+		
+
+		
+TacticalGroup.cs
+        //[Tooltip("The leader to follow. If null then the current agent will lead")]
+        public SharedGameObject leader;
+        //[Tooltip("Specifies the group index of the leader behavior tree. This is not necessary if there is only one behavior tree on the leader")]
+        public SharedInt leaderGroupIndex;
+       // [Tooltip("The objects to attack. If blank the targetTag will be used")]
+        public SharedGameObjectList targetGroup;
+       // [Tooltip("The tag of the objects to attack. Will be used if targetGroup has no elements")]
+        public SharedString targetTag;
+       // [Tooltip("The amount of time to wait until the group starts to form")]
+        public SharedFloat waitTime = 0;
+       // [Tooltip("The raycast offset relative to the pivot position")]
+        public SharedVector3 attackOffset;
+       // [Tooltip("The target raycast offset relative to the pivot position")]
+        public SharedVector3 targetOffset;
+        //[Tooltip("Should the target bone be used?")]
+        public SharedBool useTargetBone;
+       // [Tooltip("The target's bone if the target is a humanoid")]
+        public HumanBodyBones targetBone;
+		
+Defend.cs
+        //[Tooltip("The object to defend")]
+        public SharedGameObject defendObject;
+        //[Tooltip("The radius around the defend object to position the agents")]
+        public SharedFloat radius = 3;
+        //[Tooltip("The radius around the defend object to defend")]
+        public SharedFloat defendRadius = 10;
+        //[Tooltip("The maximum distance that the agents can defend from the defend object")]
+        public SharedFloat maxDistance = 15;
+		
+ShootandScout.cs
+        //[Tooltip("The number of agents that should be in a row")]
+        public SharedInt agentsPerRow = 2;
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        //[Tooltip("The amount of time that should elapse before moving to the next attack point")]
+        public SharedFloat timeStationary = 2;
+        //[Tooltip("When moving positions the agents will move based on a new random angle. The mimium move angle specifies the minimum random angle")]
+        public SharedFloat minMoveAngle = 10;
+        //[Tooltip("When moving positions the agents will move based on a new random angle. The maximum move angle specifies the maximum random angle")]
+        public SharedFloat maxMoveAngle = 20;
+        //[Tooltip("When moving positions the agents will move based on a new random radius. The minimum attack radius specifies the minimum radius")]
+        public SharedFloat minAttackRadius = 5;
+        //[Tooltip("When moving positions the agents will move based on a new random radius. The maximum attack radius specifies the maximum radius")]
+        public SharedFloat maxAttackRadius = 10;
+		
+Charge.cs
+        //[Tooltip("The number of agents that should be in a row")]
+        public SharedInt agentsPerRow = 2;
+       //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        //[Tooltip("The distance to stop charging and start attacking")]
+        public SharedFloat attackDistance = 2;
+
+Skirmisher.cs
+        //[Tooltip("The minimum separation between two agents")]
+        public SharedVector2 minSeparation = new Vector2(1, 1);
+        //[Tooltip("The maximum separation between two agents")]
+        public SharedVector2 maxSeparation = new Vector2(3, 3);
+		
+Ambush.cs
+        //[Tooltip("The minimum separation between two agents")]
+        public SharedVector2 minSeparation = new Vector2(1, 1);
+        //[Tooltip("The maximum separation between two agents")]
+        public SharedVector2 maxSeparation = new Vector2(3, 3);
+		
+Swarm.cs
+		//[Tooltip("The radius of the group")]
+        public SharedFloat radius = 5;
+        //[Tooltip("The agent positions in the swarm is randomly determined. These positions will keep being regenerated until they are not overlapping any other position. " +
+        "This value allows the random placement to be capped so it doesn't result in an infinite loop")]
+		
+Flank.cs
+        //[Tooltip("Should the agents flank from both the left and right side?")]
+        public SharedBool dualFlank = false;
+        //[Tooltip("Should the agents wait to attack until all of the agents have moved into position?")]
+        public SharedBool waitForAttack = true;
+        //[Tooltip("Optionally set an extra distance that the agents should first move towards. This will prevent the agents from crossing in front of the enemies")]
+        public SharedFloat approachDistance = 2;
+        //[Tooltip("The distance that the agents should be separated while attacking")]
+        public SharedFloat separation = 2;
+		
+Wedge.cs
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        //[Tooltip("Should agents fill the wedge?")]
+        public SharedBool fill;
+		
+Hold.cs
+        //[Tooltip("The object to defend")]
+        public SharedGameObject defendObject;
+        //[Tooltip("The radius around the defend object to position the agents")]
+        public SharedFloat radius = 5;
+        //[Tooltip("The radius around the defend object to defend")]
+        public SharedFloat defendRadius = 10;
+		
+Leapfrog.cs
+        //[Tooltip("The horizontal separation between agents within the group")]
+        public SharedFloat separation = 2;
+        //[Tooltip("The horizontal separation between the two groups")]
+        public SharedFloat groupSeparation = 10;
+        //[Tooltip("The distance of one leap")]
+        public SharedFloat leapDistance = 10;
+		
+MarchingFire.cs
+        //[Tooltip("The number of agents that should be in a row")]
+        public SharedInt agentsPerRow = 2;
+        //[Tooltip("The separation between agents")]
+        public SharedVector2 separation = new Vector2(2, 2);
+        //[Tooltip("The distance to stop marching fire and continue attacking")]
+        public SharedFloat attackDistance = 2;
+		
+ReinformentResponse.cs
+	   //[Tooltip("A list of agents that may call for reinforcements")]
+	   
+Retreat.cs
+       //[Tooltip("The distance away from the targets that is considered safe")]
+  
+Surrounded.cs
+        //[Tooltip("The radius of the agents that should surround the target")]

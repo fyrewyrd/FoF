@@ -3,7 +3,7 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 24
+  serializedVersion: 26
   productGUID: 2f969969dfb038040bd2014ec0971a9e
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Divergent Realms LLC
-  productName: Project F
+  productName: FoF
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -49,14 +49,15 @@ PlayerSettings:
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
+  m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
-  mipStripping: 0
+  mipStripping: 1
   numberOfMipsStripped: 0
+  numberOfMipsStrippedPerMipmapLimitGroup: {}
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: 0
   iosUseCustomAppBackgroundBehavior: 0
-  iosAllowHTTPDownload: 1
   allowedAutorotateToPortrait: 1
   allowedAutorotateToPortraitUpsideDown: 1
   allowedAutorotateToLandscapeRight: 1
@@ -76,6 +77,7 @@ PlayerSettings:
   androidMinimumWindowHeight: 300
   androidFullscreenMode: 1
   androidAutoRotationBehavior: 1
+  androidPredictiveBackSupport: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 1
@@ -83,10 +85,12 @@ PlayerSettings:
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
+  audioSpatialExperience: 0
   deferSystemGesturesMode: 0
   hideHomeButton: 0
   submitAnalytics: 0
   usePlayerLog: 1
+  dedicatedServerOptimizations: 0
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
   useFlipModelSwapchain: 1
@@ -121,8 +125,11 @@ PlayerSettings:
   switchNVNShaderPoolsGranularity: 33554432
   switchNVNDefaultPoolsGranularity: 16777216
   switchNVNOtherPoolsGranularity: 16777216
+  switchGpuScratchPoolGranularity: 2097152
+  switchAllowGpuScratchShrinking: 0
   switchNVNMaxPublicTextureIDCount: 0
   switchNVNMaxPublicSamplerIDCount: 0
+  switchNVNGraphicsFirmwareMemory: 32
   switchMaxWorkerMultiple: 8
   stadiaPresentMode: 0
   stadiaTargetFramerate: 0
@@ -131,12 +138,9 @@ PlayerSettings:
   vulkanEnablePreTransform: 0
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
-  m_SupportedAspectRatios:
-    4:3: 1
-    5:4: 1
-    16:10: 1
-    16:9: 1
-    Others: 1
+  loadStoreDebugModeEnabled: 0
+  visionOSBundleVersion: 1.0
+  tvOSBundleVersion: 1.0
   bundleVersion: 1.193
   preloadedAssets: []
   metroInputSource: 0
@@ -149,8 +153,9 @@ PlayerSettings:
   isWsaHolographicRemotingEnabled: 0
   enableFrameTimingStats: 0
   enableOpenGLProfilerGPURecorders: 1
+  allowHDRDisplaySupport: 1
   useHDRDisplay: 1
-  D3DHDRBitDepth: 0
+  hdrBitDepth: 0
   m_ColorGamuts: 00000000
   targetPixelDensity: 30
   resolutionScalingMode: 0
@@ -165,6 +170,7 @@ PlayerSettings:
     tvOS: com.Company.ProductName
   buildNumber:
     Standalone: 0
+    VisionOS: 0
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
@@ -181,13 +187,18 @@ PlayerSettings:
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 0
-  StripUnusedMeshComponents: 0
+  StripUnusedMeshComponents: 1
+  strictShaderVariantMatching: 0
   VertexChannelCompressionMask: 326
   iPhoneSdkVersion: 988
+  iOSSimulatorArchitecture: 0
   iOSTargetOSVersionString: 12.0
   tvOSSdkVersion: 0
+  tvOSSimulatorArchitecture: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 12.0
+  VisionOSSdkVersion: 0
+  VisionOSTargetOSVersionString: 1.0
   uIPrerenderedIcon: 0
   uIRequiresPersistentWiFi: 0
   uIRequiresFullScreen: 1
@@ -230,13 +241,16 @@ PlayerSettings:
   iOSMetalForceHardShadows: 0
   metalEditorSupport: 0
   metalAPIValidation: 1
+  metalCompileShaderBinary: 0
   iOSRenderExtraFrameOnPause: 1
   iosCopyPluginsCodeInsteadOfSymlink: 0
   appleDeveloperTeamID: 
   iOSManualSigningProvisioningProfileID: 
   tvOSManualSigningProvisioningProfileID: 
+  VisionOSManualSigningProvisioningProfileID: 
   iOSManualSigningProvisioningProfileType: 0
   tvOSManualSigningProvisioningProfileType: 0
+  VisionOSManualSigningProvisioningProfileType: 0
   appleEnableAutomaticSigning: 0
   iOSRequireARKit: 0
   iOSAutomaticallyDetectAndAddCapabilities: 1
@@ -259,6 +273,7 @@ PlayerSettings:
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: '{inproject}: '
   AndroidKeyaliasName: 
+  AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
@@ -280,7 +295,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 9c49fbc2400cf40cb808584bb602dd23, type: 3}
+      m_Icon: {fileID: 2800000, guid: f6981b57adc539e4a992728807b93044, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -398,7 +413,9 @@ PlayerSettings:
     m_EncodingQuality: 1
   - m_BuildTarget: PS4
     m_EncodingQuality: 1
+  m_BuildTargetGroupHDRCubemapEncodingQuality: []
   m_BuildTargetGroupLightmapSettings: []
+  m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
   m_BuildTargetDefaultTextureCompressionFormat: []
   playModeTestRunnerEnabled: 0
@@ -411,6 +428,7 @@ PlayerSettings:
   locationUsageDescription: 
   microphoneUsageDescription: 
   bluetoothUsageDescription: 
+  macOSTargetOSVersion: 10.13.0
   switchNMETAOverride: 
   switchNetLibKey: 
   switchSocketMemoryPoolSize: 6144
@@ -422,6 +440,7 @@ PlayerSettings:
   switchLTOSetting: 0
   switchApplicationID: 0x0005000C10000001
   switchNSODependencies: 
+  switchCompilerFlags: 
   switchTitleNames_0: 
   switchTitleNames_1: 
   switchTitleNames_2: 
@@ -547,6 +566,7 @@ PlayerSettings:
   switchSocketBufferEfficiency: 4
   switchSocketInitializeEnabled: 1
   switchNetworkInterfaceManagerInitializeEnabled: 1
+  switchDisableHTCSPlayerConnection: 0
   switchUseNewStyleFilepaths: 0
   switchUseLegacyFmodPriorities: 1
   switchUseMicroSleepForYield: 1
@@ -636,6 +656,7 @@ PlayerSettings:
   webGLMemorySize: 512
   webGLExceptionSupport: 1
   webGLNameFilesAsHashes: 0
+  webGLShowDiagnostics: 0
   webGLDataCaching: 0
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
@@ -648,18 +669,27 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
+  webGLInitialMemorySize: 32
+  webGLMaximumMemorySize: 2048
+  webGLMemoryGrowthMode: 2
+  webGLMemoryLinearGrowthStep: 16
+  webGLMemoryGeometricGrowthStep: 0.2
+  webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Android: CROSS_PLATFORM_INPUT;MOBILE_INPUT;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
-    EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2;ENVIRO_LW;ENVIRO_HD
+    EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2;ENVIRO_LW;ENVIRO_HD;ENVIRO_MICROSPLAT_SUPPORT;ENVIRO_LWRP
     GameCoreXboxOne: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
     LinuxHeadlessSimulation: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
     Lumin: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
     Nintendo Switch: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
     PS4: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
     PS5: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
+    QNX: UNITY_POST_PROCESSING_STACK_V2;ENVIRO_LW;ENVIRO_HD
+    Server: EDGEGAP_PLUGIN_SERVERS
     Stadia: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
-    Standalone: USING_URP;_CLIENT;_SERVER;_UMA;_IMMOUMA;_iMMOTRAITS;_iMMOCHARACTERCREATION;_iMMOBINDPOINT;_iMMOCHEST;_iMMOTOOLS;_iMMOEXPLORATION;_iMMOFACTIONS;_iMMOPVP;RP;ENVIRO_MIRROR_SUPPORT;THE_VEGETATION_ENGINE;THE_VEGETATION_ENGINE_IMPOSTORS;ENVIRO_MICROSPLAT_SUPPORT;__MICROSPLAT__;__MICROSPLAT_ALPHAHOLE__;__MICROSPLAT_DETAILRESAMPLE__;__MICROSPLAT_SNOW__;__MICROSPLAT_STREAMS__;__MICROSPLAT_TERRAINBLEND__;__MICROSPLAT_TESSELLATION__;__MICROSPLAT_TRIPLANAR__;__MICROSPLAT_WINDGLITTER__;__MICROSPLAT_DIGGER__;USE_TIMELINE;USE_CINEMACHINE;TMP_PRESENT;__DIGGER__;__DIGGER_ADVANCED_OPE;__MICROSPLAT_GLOBALTEXTURE__;__MICROSPLAT_TEXTURECLUSTERS__;__DIGGER_ADVANCED_OPERATIONS__;UNITY_POST_PROCESSING_STACK_V2;TERRAINPACKAGE_EXIST;ENVIRO_HD;ENVIRO_LW;ENVIRO_LWRP;VSP_PACKAGES;VEGETATION_STUDIO_PRO;TOUCH_REACT;CREST_OCEAN;AMPLIFY_IMPOSTORS;THE_VEGETATION_ENGINE_ELEMENTS;THE_VEGETATION_ENGINE_TERRAIN;THE_VEGETATION_ENGINE_POLYGONAL;THE_VEGETATION_ENGINE_DETAILS;THE_VEGETATION_ENGINE_MOBILE;EDGEGAP_PLUGIN_SERVERS;MIRROR;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;MIRROR_96_OR_NEWER;_iMMOUMA;_SQLITE
+    Standalone: USING_URP;_CLIENT;_SERVER;_UMA;_IMMOUMA;_iMMOCHARACTERCREATION;_iMMOBINDPOINT;_iMMOCHEST;_iMMOTOOLS;_iMMOEXPLORATION;_iMMOFACTIONS;_iMMOPVP;RP;ENVIRO_MIRROR_SUPPORT;THE_VEGETATION_ENGINE;THE_VEGETATION_ENGINE_IMPOSTORS;ENVIRO_MICROSPLAT_SUPPORT;__MICROSPLAT__;__MICROSPLAT_ALPHAHOLE__;__MICROSPLAT_DETAILRESAMPLE__;__MICROSPLAT_SNOW__;__MICROSPLAT_STREAMS__;__MICROSPLAT_TERRAINBLEND__;__MICROSPLAT_TESSELLATION__;__MICROSPLAT_TRIPLANAR__;__MICROSPLAT_WINDGLITTER__;__MICROSPLAT_DIGGER__;USE_TIMELINE;USE_CINEMACHINE;TMP_PRESENT;__DIGGER__;__DIGGER_ADVANCED_OPE;__MICROSPLAT_GLOBALTEXTURE__;__MICROSPLAT_TEXTURECLUSTERS__;__DIGGER_ADVANCED_OPERATIONS__;UNITY_POST_PROCESSING_STACK_V2;TERRAINPACKAGE_EXIST;ENVIRO_HD;ENVIRO_LW;ENVIRO_LWRP;AMPLIFY_IMPOSTORS;THE_VEGETATION_ENGINE_ELEMENTS;THE_VEGETATION_ENGINE_TERRAIN;THE_VEGETATION_ENGINE_POLYGONAL;THE_VEGETATION_ENGINE_DETAILS;THE_VEGETATION_ENGINE_MOBILE;EDGEGAP_PLUGIN_SERVERS;MIRROR;MIRROR_89_OR_NEWER;MIRROR_90_OR_NEWER;MIRROR_93_OR_NEWER;MIRROR_96_OR_NEWER;_iMMOUMA;_SQLITE;CREST_OCEAN;TOUCH_REACT;VSP_PACKAGES;VEGETATION_STUDIO_PRO
+    VisionOS: UNITY_POST_PROCESSING_STACK_V2;ENVIRO_LW;ENVIRO_HD
     WebGL: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
     Windows Store Apps: MOBILE_INPUT;ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
     XboxOne: ENVIRO_LW;ENVIRO_HD;ENVIRO_LWRP;ENVIRO_MIRROR_SUPPORT;UNITY_POST_PROCESSING_STACK_V2;ENVIRO_MICROSPLAT_SUPPORT
@@ -676,6 +706,7 @@ PlayerSettings:
     Windows Store Apps: 2
     iPhone: 1
   il2cppCompilerConfiguration: {}
+  il2cppCodeGeneration: {}
   managedStrippingLevel:
     EmbeddedLinux: 1
     GameCoreScarlett: 1
@@ -695,11 +726,9 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 1
   useDeterministicCompilation: 1
-  enableRoslynAnalyzers: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 0
-  assemblyVersionValidation: 0
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
     Android: 3
@@ -795,6 +824,11 @@ PlayerSettings:
   luminVersion:
     m_VersionCode: 1
     m_VersionName: 
+  hmiPlayerDataPath: 
+  hmiForceSRGBBlit: 1
+  embeddedLinuxEnableGamepadInput: 1
+  hmiLogStartupTiming: 0
+  hmiCpuConfiguration: 
   apiCompatibilityLevel: 3
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
@@ -805,6 +839,7 @@ PlayerSettings:
   organizationId: 
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
-  playerDataPath: 
-  forceSRGBBlit: 1
+  hmiLoadingImage: {fileID: 0}
+  platformRequiresReadableAssets: 0
   virtualTexturingSupportEnabled: 0
+  insecureHttpOption: 0

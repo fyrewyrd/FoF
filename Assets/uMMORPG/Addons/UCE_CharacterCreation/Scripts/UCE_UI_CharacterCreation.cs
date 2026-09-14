@@ -22,7 +22,7 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
     public GameObject panel;
     public GameObject centerPanel, centerPanel2;
     
-    public UCE_UI_CharacterTraits traitsPanel;
+   // public UCE_UI_CharacterTraits traitsPanel;
 
 
     public List<UCE_CharacterCreationClass> classList = new List<UCE_CharacterCreationClass>();
@@ -168,18 +168,11 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
         if (SpawnPoint.transform.childCount > 0)
             Destroy(SpawnPoint.transform.GetChild(0).gameObject);
         
-        int[] iTraits = new int[traitsPanel.currentTraits.Count];
-
-        for (int i = 0; i < traitsPanel.currentTraits.Count; i++)
-        {
-            iTraits[i] = traitsPanel.currentTraits[i].name.GetStableHashCode();
-        }
 
         CharacterCreateMsg message = new CharacterCreateMsg
         {
             name = nameInput.text,
             classIndex = classIndex,
-            traits = iTraits,
             dna = CompressedString()
         };
 
@@ -215,7 +208,6 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
             player.RefreshLocation(i);
         }
         
-        traitsPanel.Show();
         SetupAll();
     }
 
@@ -227,7 +219,6 @@ public partial class UCE_UI_CharacterCreation : MonoBehaviour
         if (SpawnPoint.transform.childCount > 0)
             Destroy(SpawnPoint.transform.GetChild(0).gameObject);
         
-        traitsPanel.Hide();
         panel.SetActive(false);
         bInit = false;
 

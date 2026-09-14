@@ -24,7 +24,7 @@ MonoBehaviour:
     pathIncludesFilters: []
     componentIgnoresFilters: []
     lookInScenes: 1
-    lookInAssets: 0
+    lookInAssets: 1
     lookInProjectSettings: 0
     scenesSelection: 2
     scanGameObjects: 1
@@ -108,4 +108,4 @@ MonoBehaviour:
   referencesFinderSettings:
     pathIgnoresFilters: []
     pathIncludesFilters: []
-  version: 2.3.1
+  version: 2.3.4

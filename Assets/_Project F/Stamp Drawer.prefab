@@ -1,0 +1,962 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &475777753144406795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475777753144406793}
+  - component: {fileID: 475777753144406792}
+  m_Layer: 0
+  m_Name: STAMP_dira isles_upper island
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475777753144406793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777753144406795}
+  m_LocalRotation: {x: -0.05802581, y: 0.614251, z: -0.04536567, w: 0.78566575}
+  m_LocalPosition: {x: 41.45633, y: -7.5460815, z: -37.449646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 513971429773682634}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -2.0310001, y: 76.184006, z: -8.202001}
+--- !u!114 &475777753144406792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777753144406795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9795eda8381a191479e8ca56eae4ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamp: {fileID: 11400000, guid: 5dd396f93b2b1cd42bb6e45a9a9c914f, type: 2}
+  maskOverride: {fileID: 0}
+  maskMap:
+    mapType: 2
+    input: 3
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.2
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  heightMap:
+    mapType: 0
+    input: 1
+    target: 1
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 0.438
+      edgeBlend: 1
+      opacity: 0.535
+      power: 5
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 0.805
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  colorMap:
+    mapType: 1
+    input: 2
+    target: 2
+    modifier:
+      modifierType: 1
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  roadMaskMap:
+    mapType: 4
+    input: 12
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 0
+    selfIndex: 0
+  stampMaps:
+  - mapType: 3
+    input: 7
+    target: 9
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.2
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  - mapType: 3
+    input: 6
+    target: 3
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 0.486
+      power: 0.62
+      edgeErase: 0
+      offset: 0
+      multiplier: 1.85
+      cutoffMin: 0
+      cutoffMax: 0.78
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 1
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 500, y: 64, z: 500}
+  roadBlending: 0
+--- !u!1 &475777753373428300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475777753373428298}
+  - component: {fileID: 475777753373428301}
+  m_Layer: 0
+  m_Name: STAMP_dira isles_mid island
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475777753373428298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777753373428300}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -38.035736, y: -122.54608, z: -91.34961}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 513971429773682634}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &475777753373428301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777753373428300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9795eda8381a191479e8ca56eae4ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamp: {fileID: 11400000, guid: 8d8e0fa20f1727d499571e88553a31d8, type: 2}
+  maskOverride: {fileID: 0}
+  maskMap:
+    mapType: 2
+    input: 3
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.37
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  heightMap:
+    mapType: 0
+    input: 1
+    target: 1
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 0.106
+      power: 0.2
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  colorMap:
+    mapType: 1
+    input: 2
+    target: 2
+    modifier:
+      modifierType: 1
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  roadMaskMap:
+    mapType: 4
+    input: 12
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 0
+    selfIndex: 0
+  stampMaps:
+  - mapType: 3
+    input: 0
+    target: 5
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 5
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  - mapType: 3
+    input: 7
+    target: 3
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.62
+      edgeErase: 0
+      offset: 0
+      multiplier: 0.58
+      cutoffMin: 1
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 1
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 800, y: 64, z: 800}
+  roadBlending: 0
+--- !u!1 &475777753540973926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475777753540973924}
+  - component: {fileID: 475777753540973927}
+  m_Layer: 0
+  m_Name: STAMP_dira isle_volcano2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475777753540973924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777753540973926}
+  m_LocalRotation: {x: -0, y: 0.8783621, z: -0, w: 0.47799587}
+  m_LocalPosition: {x: 95.76425, y: 20.253922, z: 24.350403}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 513971429773682634}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 122.89101, z: 0}
+--- !u!114 &475777753540973927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777753540973926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9795eda8381a191479e8ca56eae4ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamp: {fileID: 11400000, guid: 9f4b1d5df4f057d42ab69f87128ea31c, type: 2}
+  maskOverride: {fileID: 0}
+  maskMap:
+    mapType: 2
+    input: 3
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  heightMap:
+    mapType: 0
+    input: 1
+    target: 1
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  colorMap:
+    mapType: 1
+    input: 2
+    target: 2
+    modifier:
+      modifierType: 1
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  roadMaskMap:
+    mapType: 4
+    input: 12
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 0
+    selfIndex: 0
+  stampMaps:
+  - mapType: 3
+    input: 4
+    target: 8
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.2
+      edgeErase: 0
+      offset: 0
+      multiplier: 10
+      cutoffMin: 0.116
+      cutoffMax: 0.933
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  - mapType: 3
+    input: 7
+    target: 6
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 1
+  - mapType: 3
+    input: 6
+    target: 8
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 0.523
+      power: 0.2
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 2
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 350, y: 80, z: 350}
+  roadBlending: 0
+--- !u!1 &475777754174221820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475777754174221821}
+  - component: {fileID: 475777754174221818}
+  m_Layer: 0
+  m_Name: STAMP_dira isles_beach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475777754174221821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777754174221820}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -61.035736, y: -133.64609, z: -109.34961}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 513971429773682634}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &475777754174221818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777754174221820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9795eda8381a191479e8ca56eae4ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamp: {fileID: 11400000, guid: 8d8e0fa20f1727d499571e88553a31d8, type: 2}
+  maskOverride: {fileID: 0}
+  maskMap:
+    mapType: 2
+    input: 3
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.2
+      edgeErase: 0.039
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  heightMap:
+    mapType: 0
+    input: 1
+    target: 1
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.2
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 1
+      cutoffMax: 0.147
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  colorMap:
+    mapType: 1
+    input: 2
+    target: 2
+    modifier:
+      modifierType: 1
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  roadMaskMap:
+    mapType: 4
+    input: 12
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 0
+    selfIndex: 0
+  stampMaps:
+  - mapType: 3
+    input: 0
+    target: 5
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 0.39
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 920, y: 64, z: 920}
+  roadBlending: 0
+--- !u!1 &475777754497294898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475777754497294896}
+  - component: {fileID: 475777754497294899}
+  m_Layer: 0
+  m_Name: Stamp_dira isles_volcano base
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475777754497294896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777754497294898}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 32.36429, y: -109.36948, z: 29.350403}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 513971429773682634}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &475777754497294899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475777754497294898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9795eda8381a191479e8ca56eae4ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamp: {fileID: 11400000, guid: 15a97689d402f3f46a6a4924bde409a7, type: 2}
+  maskOverride: {fileID: 0}
+  maskMap:
+    mapType: 2
+    input: 3
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0.278
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  heightMap:
+    mapType: 0
+    input: 1
+    target: 1
+    modifier:
+      modifierType: 0
+      blendMode: 3
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  colorMap:
+    mapType: 1
+    input: 2
+    target: 2
+    modifier:
+      modifierType: 1
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  roadMaskMap:
+    mapType: 4
+    input: 12
+    target: 0
+    modifier:
+      modifierType: 2
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 0
+    selfIndex: 0
+  stampMaps:
+  - mapType: 3
+    input: 4
+    target: 3
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 1
+      power: 1
+      edgeErase: 0
+      offset: 0
+      multiplier: 1
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 0
+  - mapType: 3
+    input: 4
+    target: 16
+    modifier:
+      modifierType: 0
+      blendMode: 0
+      blendRatio: 1
+      edgeBlend: 1
+      opacity: 0.234
+      power: 0.24
+      edgeErase: 0
+      offset: 0
+      multiplier: 1.75
+      cutoffMin: 0
+      cutoffMax: 1
+      invert: 0
+      brightness: 1
+      contrast: 1
+      saturation: 1
+      hue: 0
+    inspectorInitialized: 1
+    selfIndex: 1
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 430, y: 50, z: 420}
+  roadBlending: 0
+--- !u!1 &3731470619385597269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 513971429773682634}
+  m_Layer: 0
+  m_Name: Stamp Drawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &513971429773682634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731470619385597269}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -152.96426, y: -234.55392, z: 361.3496}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 475777754174221821}
+  - {fileID: 475777753373428298}
+  - {fileID: 475777753144406793}
+  - {fileID: 475777754497294896}
+  - {fileID: 475777753540973924}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
