@@ -42,8 +42,14 @@ public class NetworkNavMeshAgentRubberbanding : NetworkBehaviourNonAlloc
         //       only resets it next frame etc.
         //    -> not while STUNNED.
         // -> maybe a distance check in case we get too far off from latency
-        return entity.health > 0 &&
-               (entity.state == "IDLE" || entity.state == "MOVING");
+        
+        
+        bool valid = entity.health > 0 &&
+                     (entity.state == "IDLE" || entity.state == "MOVING");
+
+        Debug.Log($"[Rubberband] CHECK {name} state=\"{entity.state}\" health={entity.health} valid={valid}");
+
+        return valid;
     }
 
     [Command]
@@ -74,7 +80,9 @@ public class NetworkNavMeshAgentRubberbanding : NetworkBehaviourNonAlloc
         //       Entity.Warp calls RpcWarped for 100% reliable detection.
 
         // local player can move freely. detect position changes.
-        if (isLocalPlayer)
+       // if (isLocalPlayer)
+       if (isLocalPlayer && Time.frameCount % 60 == 0)
+           Debug.Log($"[Rubberband] CLIENT tick | isLocalPlayer={isLocalPlayer} agent={agent != null} enabled={enabled}");
         {
             // send position every send interval no matter what.
             // -> a minimum-moved-distance can cause agent positions to get
@@ -179,14 +187,13 @@ public class NetworkNavMeshAgentRubberbanding : NetworkBehaviourNonAlloc
             //       the agents in front of the portal instead so we see what's
             //       happening. it's highly unlikely that an instance will be in
             //       proximity range of a player not in that instance anyway.
-            if (NavMesh.SamplePosition(position, out NavMeshHit hit, 0.1f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) // was 0.1f
             {
-                // ignore for local player since he can move freely
                 if (!isLocalPlayer)
                 {
                     agent.stoppingDistance = 0;
                     agent.speed = speed;
-                    agent.destination = position;
+                    agent.destination = hit.position; // use hit, not raw position
                 }
 
                 // rubberbanding: if we are too far off because of a rapid position

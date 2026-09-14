@@ -3306,7 +3306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: The AI module controls a character's actions.
   _character: {fileID: 8572722105908109858}
   aggroFocus: 0.1
@@ -3340,7 +3340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: The Targeting module manages a character's target.
   _character: {fileID: 8572722105908109858}
   _target: {fileID: 0}
@@ -3359,7 +3359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: A character's movement is controlled by this component.
   sprintKey: 304
   sneakKey: 306
@@ -3378,12 +3378,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: Skills represent the abilities a character is able to use.
   _character: {fileID: 8572722105908109858}
-  _startingSkillSet: {fileID: 11400000, guid: e8c06ec055367384bb6d25edbef0c1d4, type: 2}
-  _startingSkills:
-  - {fileID: 11400000, guid: 5c296200fd1ec4a4da4adad22203b636, type: 2}
+  _startingSkillSet: {fileID: 0}
+  _startingSkills: []
 --- !u!114 &6476281720559676659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3398,7 +3397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: Each stat pool can be used as a resource to cast spells or
     activate abilities. A character will die if a stat pool like life blood or spirit
     reaches zero. Damage Shield is a special pool that absorbs damage directed at
@@ -3504,7 +3503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: The combat related stats associated with this character.
   level: 1
   invincible: 0
@@ -3842,7 +3841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: A character's resistances make them less vulnerable to certain
     elements and damage methods.
   resistDamage: 4
@@ -3867,7 +3866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: A character's weakness make them more vulnerable to certain
     elements and damage methods.
   weakToDamage: 4
@@ -3888,7 +3887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: 'Your wealth includes all of your currencies as well as experience
     Note: Exp is used as currency in some games...it can also be used to "purchase"
     levels, like in those games where you have to hit a button to level up.'
@@ -3930,7 +3929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: A backpack holds the items this character is carrying.
   _inventoryMax:
     baseValue: 20
@@ -3949,7 +3948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: Gear represents the equipment that this character is wearing.
   slots:
   - requiredCategory: WeaponSiege
@@ -4053,7 +4052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: The storage holds valuables securely.
   _bankMax:
     baseValue: 50
@@ -4072,7 +4071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   followersDescription: Pets and mercenaries under this character's command.
   _mountsMax:
     baseValue: 1
@@ -4094,7 +4093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   _defaultTextStyle: {fileID: 11400000, guid: 5cddc88c14a32e0498bcc14963bf90ce, type: 2}
   _damageTextStyle: {fileID: 11400000, guid: 7219ad300aae9564caa75d7fad45d0fb, type: 2}
   _healTextStyle: {fileID: 11400000, guid: 9b8b1e007595d2a4589be12e61d7dfb6, type: 2}
@@ -4113,7 +4112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   effectLifetime: 300
   _activeVisualEffects: []
   _activeParticles: []
@@ -4134,7 +4133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   _data: {fileID: 0}
 --- !u!114 &1142223853590637128
 MonoBehaviour:
@@ -4150,7 +4149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   triggers: []
 --- !u!114 &6066515042459693736
 MonoBehaviour:
@@ -4166,7 +4165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   targetLocation: {x: 0, y: 0, z: 0}
   _data: {fileID: 0}
 --- !u!114 &8572722105908109858
@@ -4183,7 +4182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   componentDescription: 'The Character Sheet contains links to all of the components
     that make up a character.
 
@@ -4191,7 +4190,7 @@ MonoBehaviour:
 
     NO
     NEED TO LINK THESE MANUALLY'
-  entity: {fileID: 4384590650697550959}
+  entity: {fileID: 0}
   bloodLossKills: 1
   spiritLossKills: 1
   staminaLossKills: 1
@@ -4213,15 +4212,15 @@ MonoBehaviour:
   useSkillWhenCloser: -1
   stunTimeEnd: 0
   _player: {fileID: 0}
-  _animator: {fileID: 4384590650699182597}
-  _audioSource: {fileID: 4466715637068505705}
-  _agent: {fileID: 4384590650722996643}
-  _networkNavMeshAgent: {fileID: 4384590650697474119}
-  _collider: {fileID: 7426703670750255413}
+  _animator: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _agent: {fileID: 0}
+  _networkNavMeshAgent: {fileID: 0}
+  _collider: {fileID: 0}
   _resurrectionLevel: 0
-  _text: {fileID: 5758193457656650063}
-  _eventManager: {fileID: 6066515042459693736}
-  _vfx: {fileID: 4156041368734660546}
+  _text: {fileID: 0}
+  _eventManager: {fileID: 0}
+  _vfx: {fileID: 0}
   maxMinions: 99
   minionsDieWithMe: 1
   noMinionCorpses: 0

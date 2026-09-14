@@ -494,34 +494,35 @@ public partial class Database : MonoBehaviour
 {
     characters row = connection.FindWithQuery<characters>(
         "SELECT * FROM characters WHERE name=? AND deleted=0", characterName);
-    if (row == null) return null;
+    if (row == null)
+    {
+        Debug.LogError($"[Database] CharacterLoad: no row for '{characterName}'");
+        return null;
+    }
 
     Player prefab = prefabs.Find(p => p.name == row.classname);
-    if (prefab == null) return null;
+    if (prefab == null)
+    {
+        Debug.LogError($"[Database] CharacterLoad: no prefab for classname='{row.classname}'. " +
+                       $"Available: {string.Join(", ", prefabs.ConvertAll(p => p != null ? p.name : "null"))}");
+        return null;
+    }
+
+    Debug.Log($"[Database] CharacterLoad '{characterName}' → classname='{row.classname}' " +
+              $"prefab='{prefab.name}'");
 
     GameObject go = Instantiate(prefab.gameObject);
     Player player = go.GetComponent<Player>();
 
     Vector3 dbPosition = new Vector3(row.x, row.y, row.z);
 
-    // Agent must stay off until the world scene places the player
     NavMeshAgent agent = go.GetComponent<NavMeshAgent>();
     if (agent != null)
         agent.enabled = false;
 
-    if (isPreview)
-    {
-        // Lobby preview only – optional placement near selection
-        go.transform.position = dbPosition;
-    }
-    else
-    {
-        // Real load: keep DB position as a hint only; NetworkManager will
-        // move to world spawn after "World of Faoria" loads.
-        // Do NOT SamplePosition / Warp / enable agent here.
-        go.transform.position = dbPosition;
+    go.transform.position = dbPosition;
+    if (!isPreview)
         Debug.Log($"[Database] Loaded '{characterName}' at DB pos {dbPosition} (agent disabled)");
-    }
 
     player.name = row.name;
     player.account = row.account;
@@ -550,7 +551,7 @@ public partial class Database : MonoBehaviour
 
     Utils.InvokeMany(typeof(Database), this, "CharacterLoad_", player);
     return go;
-    }
+}
 
     void SaveInventory(Player player)
     {

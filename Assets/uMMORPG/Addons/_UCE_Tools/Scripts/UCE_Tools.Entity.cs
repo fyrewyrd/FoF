@@ -157,7 +157,7 @@ public partial class Entity
     public void UCE_OverrideState(string newState)
     {
         if (newState != "")
-            _state = newState;
+            state = newState;   // use the public property
     }
 
     // -----------------------------------------------------------------------------------

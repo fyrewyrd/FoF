@@ -724,6 +724,19 @@ public partial class Player : Entity
     }
 
     // finite state machine - server ///////////////////////////////////////////
+    
+    [Server]
+    void CheckAgent()
+    {
+        var agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+        {
+            Debug.LogWarning("[NavMesh] No NavMeshAgent on this object");
+            return;
+        }
+
+        Debug.Log($"[NavMesh] Agent enabled: {agent.enabled}, isOnNavMesh: {agent.isOnNavMesh}, hasPath: {agent.hasPath}");
+    }
     [Server]
     string UpdateServer_IDLE()
     {
@@ -3403,6 +3416,7 @@ public partial class Player : Entity
             // note: no != 0 check because it's 0 when we stop moving rapidly
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
+            Debug.Log($"[WASD] h={horizontal} v={vertical} onNavMesh={agent.isOnNavMesh} enabled={agent.enabled}");
 
             if (horizontal != 0 || vertical != 0)
             {

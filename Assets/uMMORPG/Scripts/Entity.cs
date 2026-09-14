@@ -33,14 +33,12 @@ public enum DamageType : byte { Normal, Block, Crit };
 
 // note: no animator required, towers, dummies etc. may not have one
 [RequireComponent(typeof(Rigidbody))] // kinematic, only needed for OnTrigger
-//[RequireComponent(typeof(NetworkProximityGridChecker))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(AudioSource))]
 public abstract partial class Entity : NetworkBehaviourNonAlloc
 {
     [Header("Components")]
     public NavMeshAgent agent;
-    //public NetworkProximityGridChecker proxchecker;
     public Animator animator;
 #pragma warning disable CS0109 // member does not hide accessible member
     public new Collider collider;
@@ -50,9 +48,22 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     // finite state machine
     /* -> state only writable by entity class to avoid all kinds of confusion
     [Header("State")]
-    */string _state { get { return my.state.ToString(); } set { my.state = (ActiveState)Enum.Parse(typeof(ActiveState), value); } }// = "IDLE";
-    public string state => _state;
+    */
+    // NEW – real SyncVar that rubberbanding can see
+    [SyncVar] string _networkedState = "IDLE";
 
+// Keep the same public name so the rest of the code does not break
+    public string state
+    {
+        get => _networkedState;
+        set
+        {
+            _networkedState = value;
+            // also keep DX4D in sync when something writes a classic string
+            if (my != null && System.Enum.TryParse(value, out ActiveState parsed))
+                my.state = parsed;
+        }
+    }
     // it's useful to know an entity's last combat time (did/was attacked)
     // e.g. to prevent logging out for x seconds after combat
     public double lastCombatTime { get { return character.combat.timeOfLastCombat; } set { character.combat.timeOfLastCombat = value; } }
@@ -1040,5 +1051,21 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
         // check if trigger first to avoid GetComponent tests for environment
         if (col.isTrigger && col.GetComponent<SafeZone>())
             inSafeZone = false;
+    }
+    
+    [ServerCallback]
+    void LateUpdate()
+    {
+        // keep classic string in sync with DX4D’s ActiveState
+        if (my != null)
+        {
+            string dx4d = my.state.ToString();
+            if (_networkedState != dx4d)
+                _networkedState = dx4d;
+        }
+
+        // temporary debug
+        if (Time.frameCount % 90 == 0)
+            Debug.Log($"[StateDebug] {name} | state=\"{state}\" | DX4D={(my != null ? my.state.ToString() : "null")}");
     }
 }

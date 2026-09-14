@@ -91,6 +91,8 @@ public partial class NetworkManagerMMO : NetworkManager
                 Player player = prefab.GetComponent<Player>();
                 if (player != null && !classes.Contains(player))
                     classes.Add(player);
+                Debug.Log($"[Server] playerClasses ({playerClasses.Count}): " +
+                          string.Join(", ", playerClasses.ConvertAll(p => p != null ? p.name : "null")));
             }
         }
 
@@ -303,89 +305,48 @@ public partial class NetworkManagerMMO : NetworkManager
 
     // Keep your existing OnServerCharacterSelect and OnServerCharacterDelete...
 
-void OnServerCharacterSelect(NetworkConnectionToClient conn, CharacterSelectMsg message)
-{
-    if (conn == null || !lobby.ContainsKey(conn))
+    void OnServerCharacterSelect(NetworkConnectionToClient conn, CharacterSelectMsg message)
     {
-        if (conn != null)
-            ServerSendError(conn, "CharacterSelect: not in lobby", true);
-        return;
+        if (conn == null || !lobby.ContainsKey(conn))
+        {
+            if (conn != null)
+                ServerSendError(conn, "CharacterSelect: not in lobby", true);
+            return;
+        }
+
+        string account = lobby[conn];
+        List<string> characters = Database.singleton.CharactersForAccount(account);
+
+        if (message.index < 0 || message.index >= characters.Count)
+        {
+            ServerSendError(conn, "invalid character index", false);
+            return;
+        }
+
+        GameObject go = Database.singleton.CharacterLoad(characters[message.index], playerClasses, false);
+        if (go == null)
+        {
+            Debug.LogError("[Select] CharacterLoad returned null!");
+            ServerSendError(conn, "Character load failed", true);
+            return;
+        }
+
+        var p = go.GetComponent<Player>();
+        Debug.Log($"[Select] Loaded go='{go.name}' className='{p?.className}'");
+
+        var agent = go.GetComponent<NavMeshAgent>();
+        if (agent != null)
+            agent.enabled = false;
+
+        DontDestroyOnLoad(go);
+
+        pendingPlayers[conn] = go;
+        Debug.Log($"[Select] Stored '{go.name}' in pendingPlayers. Count = {pendingPlayers.Count}");
+
+        lobby.Remove(conn);
+        Debug.Log($"[Server] Character selected for {account} – loading World of Faoria");
+        ServerChangeScene("World of Faoria");
     }
-
-    string account = lobby[conn];
-    List<string> characters = Database.singleton.CharactersForAccount(account);
-
-    if (message.index < 0 || message.index >= characters.Count)
-    {
-        ServerSendError(conn, "invalid character index", false);
-        return;
-    }
-
-    // 1. Load the character
-    GameObject go = Database.singleton.CharacterLoad(characters[message.index], playerClasses, false);
-
-    if (go == null)
-    {
-        Debug.LogError("[Select] CharacterLoad returned null!");
-        ServerSendError(conn, "Character load failed", true);
-        return;
-    }
-
-/*    // 2. Dirty temp plane + NavMesh safety
-    var agent = go.GetComponent<NavMeshAgent>();
-    if (agent != null) agent.enabled = false;
-
-    // Temporary plane position – adjust these numbers to match the plane you dropped
-    Vector3 tempPlanePos = new Vector3(-451.73f, 1.0f, -0.33f);
-    go.transform.position = tempPlanePos;
-
-    if (agent != null)
-    {
-        agent.Warp(tempPlanePos);
-        agent.enabled = true;
-    }
-*/
-
-// 2. Bypass NavMeshAgent completely for the initial spawn
-    var agent = go.GetComponent<NavMeshAgent>();
-    if (agent != null)
-    {
-        agent.enabled = false;
-        // Optional but sometimes more reliable:
-        // Destroy(agent);
-    }
-
-// Place the player directly (no agent involvement)
-    if (NetworkManager.startPositions != null && NetworkManager.startPositions.Count > 0)
-    {
-        Transform start = NetworkManager.startPositions[0];
-        go.transform.position = start.position;
-        go.transform.rotation = start.rotation;
-        Debug.Log($"[Select] Placed player at start position (no agent): {start.position}");
-    }
-    else
-    {
-        // Fallback to your temporary location if no start position exists yet
-        Vector3 tempPos = new Vector3(3737.423f, 0.649f, 3090.924f);
-        go.transform.position = tempPos;
-        Debug.LogWarning("[Select] No startPositions found – using temporary position");
-    }
-    
-    // 3. Protect from scene change destruction
-    DontDestroyOnLoad(go);
-
-    // 4. Store for later spawning
-    pendingPlayers[conn] = go;
-    Debug.Log($"[Select] Stored player in pendingPlayers. Count = {pendingPlayers.Count}");
-
-    // 5. Start the delayed final warp
-    StartCoroutine(DelayedFinalSpawn(go));
-
-    // 6. Leave lobby and change scene
-    lobby.Remove(conn);
-    Debug.Log($"[Server] Character selected for {account} – loading World of Faoria");
-    ServerChangeScene("World of Faoria");
-}
 
 System.Collections.IEnumerator DelayedFinalSpawn(GameObject player)
 {
@@ -637,11 +598,34 @@ public override void OnServerSceneChanged(string sceneName)
         {
             Debug.LogWarning("[Server] No NetworkStartPosition in World of Faoria – player left at current position");
         }
+// TEMP – use your real world spawn numbers
+        Vector3 forcedSpawn = new Vector3(3735.785f, 0.9270434f, 3087.256f);
+// or better: the actual "first time spawn in" transform values
 
+        playerGO.transform.position = forcedSpawn;
+        playerGO.transform.rotation = Quaternion.identity;
+
+        var agent = playerGO.GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.enabled = false;
+            if (NavMesh.SamplePosition(forcedSpawn, out NavMeshHit hit, 50f, NavMesh.AllAreas))
+            {
+                playerGO.transform.position = hit.position;
+                agent.Warp(hit.position);
+                agent.enabled = true;
+                Debug.Log($"[Agent] FORCED On NavMesh at {hit.position} isOnNavMesh={agent.isOnNavMesh}");
+            }
+            else
+            {
+                Debug.LogError($"[Agent] FORCED spawn has no NavMesh near {forcedSpawn}");
+            }
+        }
+        
         NetworkServer.AddPlayerForConnection(conn, playerGO);
         Debug.Log($"[Server] AddPlayerForConnection conn={conn.connectionId} go={playerGO.name}");
 
-        // Put agent on NavMesh
+      /*  // Put agent on NavMesh
         var agent = playerGO.GetComponent<NavMeshAgent>();
         if (agent != null)
         {
@@ -659,7 +643,7 @@ public override void OnServerSceneChanged(string sceneName)
             {
                 Debug.LogWarning($"[Agent] No NavMesh near {pos} – agent left disabled");
             }
-        }
+        }*/
     }
 
     pendingPlayers.Clear();
