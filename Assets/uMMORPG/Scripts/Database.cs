@@ -334,6 +334,28 @@ public partial class Database : MonoBehaviour
         return result;
     }
 
+    public string LastPlayedCharacterName(string account)
+    {
+        if (string.IsNullOrWhiteSpace(account) || connection == null)
+            return null;
+
+        characters row = connection.FindWithQuery<characters>(
+            "SELECT * FROM characters WHERE account=? AND deleted=0 ORDER BY lastsaved DESC LIMIT 1",
+            account);
+
+        return row != null ? row.name : null;
+    }
+
+    public int LastPlayedCharacterIndex(string account)
+    {
+        string lastName = LastPlayedCharacterName(account);
+        if (string.IsNullOrEmpty(lastName))
+            return -1;
+
+        List<string> names = CharactersForAccount(account);
+        return names.IndexOf(lastName);
+    }
+    
     void LoadInventory(Player player)
     {
         // fill all slots first

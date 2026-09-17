@@ -13,11 +13,59 @@ MonoBehaviour:
   m_Name: UCE_Defines
   m_EditorClassIdentifier: 
   addons:
+  - name: UCE Bindpoint
+    define: _iMMOBINDPOINT
+    basis: uMMORPG3d V1
+    author: Fhiz
+    version: 2019.202
+    dependencies: none
+    comments: none
+    active: 1
   - name: UCE CharacterCreation
     define: _iMMOCHARACTERCREATION
     basis: uMMORPG3d V1
     author: Fhiz, Obscured Crow, Pierce
     version: 2019.201
     dependencies: none
+    comments: none
+    active: 1
+  - name: UCE Exploration
+    define: _iMMOEXPLORATION
+    basis: uMMORPG3d V1
+    author: Fhiz
+    version: 2019.202
+    dependencies: none
+    comments: none
+    active: 1
+  - name: UCE Factions
+    define: _iMMOFACTIONS
+    basis: uMMORPG3d V1
+    author: Fhiz
+    version: 2019.202
+    dependencies: none
+    comments: none
+    active: 1
+  - name: UCE Lootcrate
+    define: _iMMOCHEST
+    basis: uMMORPG3d V1
+    author: Fhiz
+    version: 2019.201
+    dependencies: none
+    comments: none
+    active: 1
+  - name: UCE PvP Zones & Realms
+    define: _iMMOPVP
+    basis: uMMORPG3d V1
+    author: Fhiz
+    version: 2019.202
+    dependencies: none
+    comments: none
+    active: 1
+  - name: UCE UMA Integration
+    define: _iMMOUMA
+    basis: uMMORPG3d V1
+    author: Pierce, ObscuredCrow
+    version: 2019.204
+    dependencies: UCE Character Creation
     comments: none
     active: 1

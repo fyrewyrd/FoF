@@ -119,8 +119,9 @@ public class NetworkAuthenticatorMMO : NetworkAuthenticator
                 conn.Send(manager.MakeCharactersAvailableMessage(msg.account));
                 conn.Send(new LoginSuccessMsg());
 
-                OnServerAuthenticated.Invoke(conn);
+                manager.TryAutoEnterLastPlayed(conn, msg.account);
 
+                OnServerAuthenticated.Invoke(conn);
                 Debug.Log($"Login successful for account: {msg.account}");
             }
             else

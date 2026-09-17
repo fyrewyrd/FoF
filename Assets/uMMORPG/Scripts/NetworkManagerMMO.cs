@@ -34,6 +34,7 @@ public partial class NetworkManagerMMO : NetworkManager
     public float combatLogoutDelay = 5f;
 
     [Header("Character Selection")]
+    public bool autoEnterLastPlayed = false;
     public int selection = -1;
     public Transform[] selectionLocations;
     public Transform selectionCameraLocation;
@@ -77,7 +78,7 @@ public partial class NetworkManagerMMO : NetworkManager
         playerClasses.Clear();
         playerClasses.AddRange(FindPlayerClasses());
     }
-
+    
     public List<Player> FindPlayerClasses()
     {
         List<Player> classes = new List<Player>();
@@ -155,7 +156,11 @@ public partial class NetworkManagerMMO : NetworkManager
     
     // Camera positioning for character selection screen
     void OnClientCharactersAvailable_(CharactersAvailableMsg msg)
+    
     {
+        if (autoEnterLastPlayed)
+            return;
+        
         Debug.Log("[Camera] OnClientCharactersAvailable_ triggered");
 
         if (Camera.main == null)
@@ -248,31 +253,45 @@ public partial class NetworkManagerMMO : NetworkManager
             return;
         }
 
+        if (pendingPlayers.ContainsKey(localConn))
+            return;
+
         if (!lobby.ContainsKey(localConn))
         {
-            lobby[localConn] = "local";
-            Debug.Log("[Server] Added 'local' account to lobby");
+            Debug.Log("[Server] ForceSend skipped – not in lobby yet (waiting for login)");
+            return;
         }
 
         string account = lobby[localConn];
 
-        // Force at least one character if none exist (for testing)
-        if (Database.singleton.CharactersForAccount(account).Count == 0)
-        {
-            Debug.LogWarning($"[Server] No characters found for account '{account}'. Creating a test character for debugging.");
-            // You can manually create one here, or just continue with empty list for now
-        }
-
         CharactersAvailableMsg msg = MakeCharactersAvailableMessage(account);
         localConn.Send(msg);
-
+        TryAutoEnterLastPlayed(localConn, account);
         Debug.Log($"[Server] FORCED SENT CharactersAvailableMsg with {msg.characters.Length} characters");
     }
 
     // ===================================================================
     // CHARACTER HANDLERS (Keep UCE hooks)
     // ===================================================================
+    
+    public void TryAutoEnterLastPlayed(NetworkConnectionToClient conn, string account)
+    {
+        if (!autoEnterLastPlayed || conn == null || string.IsNullOrEmpty(account))
+            return;
 
+        if (!lobby.ContainsKey(conn))
+            return;
+
+        int index = Database.singleton.LastPlayedCharacterIndex(account);
+        if (index < 0)
+        {
+            Debug.Log($"[AutoEnter] no last-played character for '{account}'");
+            return;
+        }
+
+        Debug.Log($"[AutoEnter] account='{account}' index={index}");
+        OnServerCharacterSelect(conn, new CharacterSelectMsg { index = index });
+    }
     void OnServerCharacterCreate(NetworkConnectionToClient conn, CharacterCreateMsg message)
     {
         if (conn == null || !lobby.ContainsKey(conn))
@@ -535,15 +554,19 @@ void OnServerCharacterDelete(NetworkConnectionToClient conn, CharacterDeleteMsg 
 
         if (conn == NetworkServer.localConnection)
         {
-            Debug.Log("[Server] Local Host detected - forcing character list");
+            if (pendingPlayers.ContainsKey(conn))
+                return;
 
             if (!lobby.ContainsKey(conn))
-                lobby[conn] = "local";
+            {
+                Debug.Log("[Server] OnServerReady skipped – not in lobby yet");
+                return;
+            }
 
             string account = lobby[conn];
             CharactersAvailableMsg msg = MakeCharactersAvailableMessage(account);
             conn.Send(msg);
-
+            TryAutoEnterLastPlayed(conn, account);
             Debug.Log($"[Server] SENT CharactersAvailableMsg with {msg.characters.Length} characters");
         }
     }
@@ -599,28 +622,30 @@ public override void OnServerSceneChanged(string sceneName)
             Debug.LogWarning("[Server] No NetworkStartPosition in World of Faoria – player left at current position");
         }
 // TEMP – use your real world spawn numbers
-        Vector3 forcedSpawn = new Vector3(3735.785f, 0.9270434f, 3087.256f);
+        // Vector3 forcedSpawn = new Vector3(3735.785f, 0.9270434f, 3087.256f);
 // or better: the actual "first time spawn in" transform values
 
-        playerGO.transform.position = forcedSpawn;
-        playerGO.transform.rotation = Quaternion.identity;
+        Vector3 pos = playerGO.transform.position; // from CharacterLoad / DB
 
         var agent = playerGO.GetComponent<NavMeshAgent>();
         if (agent != null)
         {
             agent.enabled = false;
-            if (NavMesh.SamplePosition(forcedSpawn, out NavMeshHit hit, 50f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 50f, NavMesh.AllAreas))
             {
                 playerGO.transform.position = hit.position;
                 agent.Warp(hit.position);
                 agent.enabled = true;
-                Debug.Log($"[Agent] FORCED On NavMesh at {hit.position} isOnNavMesh={agent.isOnNavMesh}");
+                Debug.Log($"[Agent] Sampled DB pos {pos} -> {hit.position}");
             }
             else
             {
-                Debug.LogError($"[Agent] FORCED spawn has no NavMesh near {forcedSpawn}");
+                Debug.LogError($"[Agent] No NavMesh near saved pos {pos}");
+                // last resort: first NetworkStartPosition, not a magic vector
             }
         }
+
+        NetworkServer.AddPlayerForConnection(conn, playerGO);
         
         NetworkServer.AddPlayerForConnection(conn, playerGO);
         Debug.Log($"[Server] AddPlayerForConnection conn={conn.connectionId} go={playerGO.name}");
