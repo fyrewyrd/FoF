@@ -19,11 +19,41 @@ public partial class Player : Entity
     [SyncVar]
     public string umaDna = "";
 
-    private void OnStartLocalPlayer_UmaIntegration()
+    private void OnStartClient_UmaIntegration()
     {
-        StartCoroutine(WaitForDcs());
+        Debug.Log("[UMA] OnStartClient " + name + " local=" + isLocalPlayer + " dnaLen=" + (umaDna ?? "").Length);
+        StartCoroutine(ApplyUmaWhenReady());
     }
 
+    private IEnumerator ApplyUmaWhenReady()
+    {
+        float t = 0f;
+        DynamicCharacterAvatar avatar = null;
+
+        while (avatar == null && t < 5f)
+        {
+            avatar = GetComponentInChildren<DynamicCharacterAvatar>();
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        if (avatar == null)
+        {
+            Debug.LogWarning("[UMA] no DynamicCharacterAvatar on " + name);
+            yield break;
+        }
+
+        t = 0f;
+        while (string.IsNullOrEmpty(umaDna) && t < 5f)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        Debug.Log("[UMA] applying dnaLen=" + (umaDna ?? "").Length + " raceBefore=" + avatar.activeRace.name);
+        RefreshUma();
+        Debug.Log("[UMA] raceAfter=" + avatar.activeRace.name);
+    }
     public void ProcessBones(Transform transform)
     {
         foreach (Transform t in transform)
@@ -84,7 +114,19 @@ public partial class Player : Entity
             }
         }
     }
+    public void PackUmaDna()
+    {
+        if (!isServer) return;
 
+        DynamicCharacterAvatar avatar = GetComponentInChildren<DynamicCharacterAvatar>();
+        if (avatar == null) return;
+
+        string recipe = avatar.GetCurrentRecipe();
+        if (string.IsNullOrEmpty(recipe)) return;
+
+        umaDna = CompressUMA.Compressor.CompressDna(recipe);
+        Debug.Log($"[UMA] Packed {name} race={avatar.activeRace.name} dnaLen={umaDna.Length}");
+    }
     private IEnumerator WaitForDcs()
     {
         yield return new WaitWhile(() => FindObjectOfType<DynamicCharacterSystem>() == null);

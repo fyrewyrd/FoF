@@ -52,7 +52,7 @@ public partial class NetworkManagerMMO : NetworkManager
     [Header("Database")]
     public int characterLimit = 4;
     public int characterNameMaxLength = 16;
-    public float saveInterval = 60f;
+    public float saveInterval = 10f;
 
     [HideInInspector]
     public CharactersAvailableMsg charactersAvailableMsg;
@@ -724,14 +724,22 @@ public override void OnServerSceneChanged(string sceneName)
     
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        // Clean up lobby so the same account can log in again
+        if (conn != null && conn.identity != null)
+        {
+            Player player = conn.identity.GetComponent<Player>();
+            if (player != null)
+            {
+                Database.singleton.CharacterSave(player, false);
+                Debug.Log("[Server] Saved " + player.name + " on disconnect");
+            }
+        }
+
         if (lobby.ContainsKey(conn))
         {
             Debug.Log($"[Server] Removing account '{lobby[conn]}' from lobby on disconnect");
             lobby.Remove(conn);
         }
 
-        // Also clean up any pending player that never got spawned
         if (pendingPlayers.ContainsKey(conn))
         {
             GameObject go = pendingPlayers[conn];
@@ -743,6 +751,13 @@ public override void OnServerSceneChanged(string sceneName)
         base.OnServerDisconnect(conn);
     }
 
+    public override void OnStopServer()
+    {
+        if (Player.onlinePlayers.Count > 0)
+            Database.singleton.CharacterSaveMany(Player.onlinePlayers.Values);
+        base.OnStopServer();
+    }
+    
     System.Collections.IEnumerator DelayedReadyCheck()
     {
         yield return new WaitForSeconds(0.3f);
