@@ -4,11 +4,10 @@ Combo 1:
 Combo 2: 
 Combo 3: 
 
-Q:
-E:
-R:
-Z:
-C:
+Q: Skill 1
+E: Skill 2
+R: Ultimate
+Z: Defensive
 
 Affinity:
 

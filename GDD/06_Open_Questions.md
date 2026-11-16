@@ -32,3 +32,8 @@ Living list of unresolved design decisions. Move items out of this note as they 
 ### Technical
 - Preferred Mirror interest management + scene strategy for dungeons.
 - How much of the old uMMORPG instance-in-the-sky pattern to keep during early prototyping.
+
+### Theme
+A fantasy world where there are other worlds around it. The player enters this world that's fully established and has no idea what is going on and will make their way around it while exploring the different cultures, conflicts, and continents. The world will tell the story and make it worth going into. The story mode will be less cutscene and more focused on keeping it moving.
+
+How will the player feel like they are living the theme?

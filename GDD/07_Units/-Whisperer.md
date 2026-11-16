@@ -1,17 +1,14 @@
 Mage
 
-Combo 1: 
-Combo 2: 
-Combo 3: 
-
 Q:
 E:
 R:
 Z:
+C: 
 
 
 Affinity:
 
 Passive: 
 
-this unit summons ghosts that surround and swarm the area to do X dmg
+this unit summons spirits and ghosts that surround and swarm the area to do X dmg

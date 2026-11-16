@@ -1,9 +1,5 @@
 Crafter
 
-Combo 1: 
-Combo 2: 
-Combo 3: 
-
 Q: 
 E: binds target
 R:

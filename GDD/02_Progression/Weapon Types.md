@@ -5,29 +5,40 @@ This way units can use different weapons of their natural damage type.
 assign me please - 
 
 **Weapons:**
+Sword
 Twin Blades
 Dual Swords
 Double Axe
-Sword
-Sword+Shield
-Axe+Shield
-Spear+Shield
-Mace+Shield
-Long Sword
+Sword+Spellblade
+Shield+Axe+Mace+Sword+Spear
+Long Sword+Claymore
 Battleaxe
 Warhammer
 Scythe
-Spear
+Spear+Lance
 Long Bow
-Sash
-Spellblade
+Sash(fist+Kick)
+Rapier
+Katana
+
 
 **Stat Sticks(animations and stats only):**
 Staff
+Wand
 Grimore
 Orb
 
-
+Shield Note:
+Shield will be it's own weapon. 
+-Tap is the melee weapon
+-Hold is for shield use
+-Mace will carry magic+healing stats
+-Sword will carry defensive stats
+-Axe will carry damage
+-Tap1 puts you in Attack Stance
+-Hold1 puts you in Defense Stance
+-Sword/Mace/Axe should have longer handles
+-Spear/Lance could also make a Dagger animation set as well. could look into this
 
 
 Units categorized based on damage type

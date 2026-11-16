@@ -13,3 +13,5 @@ C:
 Affinity:
 
 Passive: 
+
+Does double damage on staggered mobs and mobs at 15% health take more damage and the effects can stack. gotta see how overwhelmed works
